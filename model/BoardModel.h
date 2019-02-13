@@ -11,14 +11,15 @@ class PieceModel;
 class BoardModel : public Notifier<BoardModel> {
     public:
         BoardModel();
+        void initialize();
         PieceModel * get(const int & x, const int & y) const;
         bool set(PieceModel * piece, const int & x, const int & y);
 
     private:
         PieceModel * m_board[BOARD_SIZE * BOARD_SIZE] = { };
 
-        void init_black();
-        void init_white();
+        void initialize_white();
+        void initialize_black();
 };
 
 #endif // MODEL_BOARDMODEL_H_

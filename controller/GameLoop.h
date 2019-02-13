@@ -2,17 +2,20 @@
 #define CONTROLLER_GAME_LOOPER_H_
 
 #include "../model/BoardModel.h"
+#include "../model/ColorModel.h"
 
-class GameLooper {
+class GameLoop {
     public:
-        GameLooper(BoardModel boardModel);
-        void initialize();
+        GameLoop(BoardModel boardModel);
         void start();
         void stop();
 
     private:
         BoardModel & m_boardModel;
         bool m_stop;
+        int m_loopNumber;
+
+        ColorModel gameEnd();
 };
 
 #endif // CONTROLLER_GAME_LOOPER_H_

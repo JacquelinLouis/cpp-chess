@@ -1,27 +1,28 @@
 #include <iostream>
 
-#include "mvc/Listener.h"
 #include "mvc/Notifier.h"
 #include "model/BoardModel.h"
-// #include "controller/GameLooper.h"
+#include "controller/GameLoop.h"
+#include "view/BoardView.h"
 
 #include "test/MvcTests.h"
 
 void runGame() {
     BoardModel boardModel;
-    Listener<BoardModel> boardListener([&](const BoardModel boardModel) {
-        // Update UI
+    int boardModelIdentifier = boardModel.addListener(
+        [](const BoardModel boardModel) {
+            // Update UI
+            std::cout << "Board model updated" << std::endl;
+            BoardView(boardModel).show();
     });
-    boardModel.addListener(boardListener);
     
-    /*
-    GameLooper gameLooper(boardModel);
-    gameLooper.start();
+    GameLoop gameLoop(boardModel);
+    gameLoop.start();
     // Wait for end of game or quit key press
     if (false) { // Quit key press
-        gameLooper.end();
+        gameLoop.stop();
+        boardModel.removeListener(boardModelIdentifier);
     }
-    */
 }
 
 void runTests() {

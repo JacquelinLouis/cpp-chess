@@ -27,7 +27,6 @@ class PieceModel {
             return piece != nullptr && type == piece->type && color == piece->color;
         }
 
-    private:
         const enum Type type;
         const ColorModel color;
 };

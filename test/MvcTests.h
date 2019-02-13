@@ -6,6 +6,9 @@ class MvcTests {
         void runAll();
 
     private:
+        void testAddListener();
+        void testDifferentsIdentifiers();
+        void testRemoveListener();
         void testListenerCall();
 };
 

@@ -3,7 +3,8 @@
 #include <iostream>
 
 const char *Test::SUCCESS = "SUCCESS";
-const char *Test::FAILED = "FAILED"; 
+const char *Test::FAILED = "FAILED";
+int Test::k_testNumber = 0;
 
 Test::Test() :
     m_called(0)
@@ -17,7 +18,12 @@ void Test::expectCall() {
     m_called += 1;
 }
 
+void Test::call() {
+    m_called -= 1;
+}
+
 void Test::runExpectation() {
+    cout();
     if (m_called != 0) {
         std::cout << FAILED << ": expect " << m_called << " call" << std::endl;
     } else {
@@ -26,9 +32,29 @@ void Test::runExpectation() {
 }
 
 void Test::expectTrue(bool expectation) {
+    cout();
     if (!expectation) {
         std::cout << FAILED << ": expect " << expectation << " call" << std::endl;
     } else {
         std::cout << SUCCESS << std::endl;
     } 
+}
+
+void Test::expectFalse(bool expectation) {
+    expectTrue(!expectation);
+}
+
+template<typename T>
+void Test::expectEquals(T expected, T actual) {
+    cout();
+    if (expected != actual) {
+        std::cout << FAILED << ": expect " << actual << " to be equal to " << expected << std::endl;
+    } else {
+        std::cout << SUCCESS << std::endl;
+    }
+}
+
+void Test::cout() {
+    k_testNumber += 1;
+    std::cout << "Test[" << k_testNumber << "] ";
 }

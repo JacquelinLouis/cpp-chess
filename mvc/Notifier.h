@@ -1,26 +1,38 @@
 #ifndef MVC_NOTIFIER_H_
 #define MVC_NOTIFIER_H_
 
-#include <set>
-
-#include "Listener.h"
+#include<functional>
+#include <map>
 
 template <class UpdatedType>
 class Notifier {
     public:
-        void addListener(Listener<UpdatedType> listener) {
-            m_listeners.insert(listener);
+        /**
+         * @brief Store the given listener and return a unique identifier
+         * 
+         * @param listener listener to store and notify
+         * @return int the unique identifier returned
+         */
+        int addListener(std::function<void(UpdatedType)> listener) {
+            int id = k_identifier;
+            m_listeners.emplace(id, listener);
+            k_identifier += 1;
+            return id;
         }
-        void removeListener(Listener<UpdatedType> listener) {
-            m_listeners.erase(listener);
+        void removeListener(int id) {
+            m_listeners.erase(id);
         }
         void notify(const UpdatedType updatedObject) {
-            for (auto & listener : m_listeners) {
-                listener.notify(updatedObject);
+            for (const auto & listener : m_listeners) {
+                listener.second(updatedObject);
             }
         }
-    private:
-        std::set<Listener<UpdatedType>> m_listeners; 
+    protected:
+        std::map<int, std::function<void(UpdatedType)>> m_listeners;
+        static int k_identifier;
 };
+
+template <class UpdatedType>
+int Notifier<UpdatedType>::k_identifier = 0;
 
 #endif // MVC_NOTIFIER_H_

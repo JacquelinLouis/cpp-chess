@@ -2,6 +2,7 @@
 #define MODEL_COLOR_MODEL_H_
 
 enum class ColorModel {
+    NONE,
     BLACK,
     WHITE
 };
