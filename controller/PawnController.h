@@ -7,9 +7,12 @@
 
 class PawnController : public PieceController {
     public:
-        PieceModel * move(BoardModel & board,
+        PieceModel * take(BoardModel & board,
                           const int posOrigin[2],
                           const int posDestination[2]) override;
+        bool move(BoardModel & board,
+                  const int posOrigin[2],
+                  const int posDestination[2]) override;
 };
 
 #endif // CONTROLLER_PAWN_CONTROLLER_H_

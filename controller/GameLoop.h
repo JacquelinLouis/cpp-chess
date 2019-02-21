@@ -6,15 +6,17 @@
 
 class GameLoop {
     public:
-        GameLoop(BoardModel boardModel);
+        GameLoop(BoardModel & boardModel);
         void start();
         void stop();
 
     private:
         BoardModel & m_boardModel;
+        ColorModel m_playColor;
         bool m_stop;
         int m_loopNumber;
 
+        void updatePlayerColor();
         ColorModel gameEnd();
 };
 

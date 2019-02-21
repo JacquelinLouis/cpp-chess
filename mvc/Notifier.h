@@ -24,7 +24,8 @@ class Notifier {
         }
         void notify(const UpdatedType updatedObject) {
             for (const auto & listener : m_listeners) {
-                listener.second(updatedObject);
+                if (listener.second)
+                    listener.second(updatedObject);
             }
         }
     protected:

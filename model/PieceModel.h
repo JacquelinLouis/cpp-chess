@@ -9,7 +9,13 @@
  */
 class PieceModel {
     public:
-        enum Type { KING, QUEEN, ROOK, PAWN, KNIGHT, BISHOP };
+        /**
+         * @brief Pieces types
+         * 
+         * NONE value is used to keep the 0 value as default, separate from real
+         * pieces.
+         */
+        enum Type { NONE = 0, KING, QUEEN, ROOK, PAWN, KNIGHT, BISHOP };
 
         PieceModel(const enum Type t, const enum ColorModel c);
         /**

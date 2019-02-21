@@ -38,16 +38,14 @@ void MvcTests::testDifferentsIdentifiers() {
         [](const TestNotifier updatedTestNotifier) {});
     int listenerId2 = testNotifier.addListener(
         [](const TestNotifier updatedTestNotifier) {});
-    test.expectTrue(listenerId1 != listenerId2);
+    test.expectNotEquals(listenerId1, listenerId2);
 }
 
 void MvcTests::testRemoveListener() {
     TestNotifier testNotifier;
     Test test;
     int listenerId = testNotifier.addListener(
-        [](const TestNotifier updatedTestNotifier) {
-    
-        });
+        [](const TestNotifier updatedTestNotifier) {});
     test.expectTrue(testNotifier.contains(listenerId));
     testNotifier.removeListener(listenerId);
     test.expectFalse(testNotifier.contains(listenerId));
@@ -60,7 +58,7 @@ void MvcTests::testListenerCall() {
     testNotifier.addListener(
         [&](const TestNotifier udpatedTestNotifier) {
             test.call();
-            test.expectTrue(udpatedTestNotifier.getValue() == 2);
+            test.expectEquals(udpatedTestNotifier.getValue(), 2);
     });
     testNotifier.setValue(2);
     test.runExpectation();

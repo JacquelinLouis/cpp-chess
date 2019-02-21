@@ -14,6 +14,8 @@ class BoardModel : public Notifier<BoardModel> {
         void initialize();
         PieceModel * get(const int & x, const int & y) const;
         bool set(PieceModel * piece, const int & x, const int & y);
+        PieceModel * move(const int & xOrigin, const int & yOrigin,
+                  const int & xDestination, const int & yDestination);
 
     private:
         PieceModel * m_board[BOARD_SIZE * BOARD_SIZE] = { };

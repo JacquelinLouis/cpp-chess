@@ -3,8 +3,8 @@
 
 enum class ColorModel {
     NONE,
-    BLACK,
-    WHITE
+    WHITE,
+    BLACK
 };
 
 #endif // MODEL_COLOR_MODEL_H_

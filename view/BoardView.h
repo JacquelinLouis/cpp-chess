@@ -13,6 +13,9 @@
 
 class BoardView {
     public:
+        static int mapCharKeyToInt(char charKey);
+        static char mapIntKeyToChar(int intKey);
+
         BoardView(BoardModel boardModel);
         void show();
 

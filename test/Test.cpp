@@ -44,16 +44,6 @@ void Test::expectFalse(bool expectation) {
     expectTrue(!expectation);
 }
 
-template<typename T>
-void Test::expectEquals(T expected, T actual) {
-    cout();
-    if (expected != actual) {
-        std::cout << FAILED << ": expect " << actual << " to be equal to " << expected << std::endl;
-    } else {
-        std::cout << SUCCESS << std::endl;
-    }
-}
-
 void Test::cout() {
     k_testNumber += 1;
     std::cout << "Test[" << k_testNumber << "] ";
