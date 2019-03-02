@@ -4,7 +4,7 @@
 
 const char *Test::SUCCESS = "SUCCESS";
 const char *Test::FAILED = "FAILED";
-int Test::k_testNumber = 0;
+int Test::TEST_NUMBER = 0;
 
 Test::Test() :
     m_called(0)
@@ -45,6 +45,6 @@ void Test::expectFalse(bool expectation) {
 }
 
 void Test::cout() {
-    k_testNumber += 1;
-    std::cout << "Test[" << k_testNumber << "] ";
+    TEST_NUMBER += 1;
+    std::cout << "Test[" << TEST_NUMBER << "] ";
 }

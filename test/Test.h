@@ -10,10 +10,11 @@ class Test {
         void expectCall();
         void call();
         void runExpectation();
-        void expectTrue(bool expectation);
-        void expectFalse(bool expectation);
+
+        static void expectTrue(bool expectation);
+        static void expectFalse(bool expectation);
         template<typename T>
-        void expectEquals(T expected, T actual) {
+        static void expectEquals(T expected, T actual) {
             cout();
             if (expected != actual) {
                 std::cout << FAILED << ": expect " << actual << " to be equal to " << expected << std::endl;
@@ -22,8 +23,16 @@ class Test {
             }
         }
 
+        /*
+        template<typename T,
+                 typename = typename std::enable_if<std::is_enum<T>::value, bool>::type>
+        static void expectEquals(T expected, T actual) {
+            expectEquals(static_cast<int>(expected), static_cast<int>(actual)); 
+        }
+        */
+
         template<typename T>
-        void expectNotEquals(T expected, T actual) {
+        static void expectNotEquals(T expected, T actual) {
             cout();
             if (expected == actual) {
                 std::cout << FAILED << ": expect " << actual << " to be different from " << expected << std::endl;
@@ -36,10 +45,10 @@ class Test {
     private:
         static const char *SUCCESS; 
         static const char *FAILED;
-        static int k_testNumber;
+        static int TEST_NUMBER;
         int m_called;
 
-        void cout();
+        static void cout();
 };
 
 #endif // TEST_TEST_H_

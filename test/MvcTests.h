@@ -1,10 +1,11 @@
 #ifndef TEST_MVC_H_
 #define TEST_MVC_H_
 
-class MvcTests {
-    public:
-        void runAll();
+#include "TestClass.h"
 
+class MvcTests : public TestClass {
+    public:
+        void runAll() override;
     private:
         void testAddListener();
         void testDifferentsIdentifiers();

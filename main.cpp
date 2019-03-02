@@ -6,6 +6,7 @@
 #include "view/BoardView.h"
 
 #include "test/MvcTests.h"
+#include "test/BoardModelTest.h"
 
 void runGame() {
     BoardModel boardModel;
@@ -28,6 +29,8 @@ void runGame() {
 void runTests() {
     MvcTests mvcTests;
     mvcTests.runAll();
+    BoardModelTest boardModelTest;
+    boardModelTest.runAll();
 }
 
 int main(int argc, char **argv) {

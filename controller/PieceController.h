@@ -12,6 +12,8 @@
  */
 class PieceController {
     public:
+        int colorToDirection(ColorModel color);
+
         /**
          * @brief Take the piece at posDestination, by the piece at posOrigin.
          * 
@@ -25,6 +27,8 @@ class PieceController {
                                   const int posDestination[2]) = 0;
         /**
          * @brief Move the piece from posOrigin to posDestination.
+         * Check if the piece at posOrigin is in board and if the destination is
+         * too.
          * 
          * @param board the game board to use.
          * @param posOrigin position of the piece to move.

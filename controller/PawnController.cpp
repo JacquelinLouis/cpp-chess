@@ -16,9 +16,14 @@ PieceModel * PawnController::take(BoardModel & board,
 bool PawnController::move(BoardModel & board, 
                           const int posOrigin[2],
                           const int posDestination[2]) {
-    if (posOrigin[0] != posDestination[0]
-        || (posOrigin[1] != posDestination[1] + 1 && posOrigin[1] != posDestination[1] + 2
-        && posOrigin[1] != posDestination[1] - 1 && posOrigin[1] != posDestination[1] - 2)) {
+    PieceModel * pieceModel = board.get(posOrigin[0], posOrigin[1]);
+    if (!pieceModel) {
+        return false;
+    }
+    int direction = colorToDirection(pieceModel->color);
+    if (posOrigin[0] == posDestination[0]
+        || (posOrigin[1] != posDestination[1] + direction
+            && posOrigin[1] != posDestination[1] + 2 * direction)) {
         return false;
     }
     return PieceController::move(board, posOrigin, posDestination);

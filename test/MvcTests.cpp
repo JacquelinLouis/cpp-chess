@@ -28,7 +28,7 @@ void MvcTests::testAddListener() {
     std::function<void(TestNotifier)> listener =
         [](const TestNotifier updatedTestNotifier) {};
     int listenerId = testNotifier.addListener(listener);
-    test.expectTrue(testNotifier.contains(listenerId));
+    Test::expectTrue(testNotifier.contains(listenerId));
 }
 
 void MvcTests::testDifferentsIdentifiers() {
@@ -38,7 +38,7 @@ void MvcTests::testDifferentsIdentifiers() {
         [](const TestNotifier updatedTestNotifier) {});
     int listenerId2 = testNotifier.addListener(
         [](const TestNotifier updatedTestNotifier) {});
-    test.expectNotEquals(listenerId1, listenerId2);
+    Test::expectNotEquals(listenerId1, listenerId2);
 }
 
 void MvcTests::testRemoveListener() {
@@ -46,9 +46,9 @@ void MvcTests::testRemoveListener() {
     Test test;
     int listenerId = testNotifier.addListener(
         [](const TestNotifier updatedTestNotifier) {});
-    test.expectTrue(testNotifier.contains(listenerId));
+    Test::expectTrue(testNotifier.contains(listenerId));
     testNotifier.removeListener(listenerId);
-    test.expectFalse(testNotifier.contains(listenerId));
+    Test::expectFalse(testNotifier.contains(listenerId));
 }
 
 void MvcTests::testListenerCall() {
@@ -58,7 +58,7 @@ void MvcTests::testListenerCall() {
     testNotifier.addListener(
         [&](const TestNotifier udpatedTestNotifier) {
             test.call();
-            test.expectEquals(udpatedTestNotifier.getValue(), 2);
+            Test::expectEquals(udpatedTestNotifier.getValue(), 2);
     });
     testNotifier.setValue(2);
     test.runExpectation();
