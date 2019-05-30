@@ -3,18 +3,14 @@
 
 #include "StateMachine.h"
 
-#include "../model/StateTypeModel.h"
 #include "../model/ColorModel.h"
+
+class StateMachine;
 
 class State {
     public:
-        State(StateTypeModel type);
-        virtual void goNext(StateMachine *);
-
-        StateTypeModel getType() const;
-
-    private:
-        StateTypeModel m_stateTypeModel;
+        virtual ~State();
+        virtual void goNext(StateMachine *) = 0;
 };
 
 #endif // STATEMACHINE_STATE_H_

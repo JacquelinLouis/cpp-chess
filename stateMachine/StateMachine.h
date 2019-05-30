@@ -1,24 +1,26 @@
 #ifndef STATE_MACHINE_STATE_MACHINE_H_
 #define STATE_MACHINE_STATE_MACHINE_H_
 
-
 #include<functional>
 
-#include "../model/StateTypeModel.h"
+#include "../mvc/Notifier.h"
 #include "../model/ColorModel.h"
 #include "State.h"
 
-class StateMachine {
+class State;
+
+/**
+ * @brief State machine to store and get the current play state.
+ */
+class StateMachine : Notifier {
     public:
-        StateMachine(std::function<void(StateTypeModel, ColorModel)>);
-        ~StateMachine();
-        State getCurrentState() const;
+        StateMachine(std::function<void()> stateUpdatedCallback);
+        State * getCurrentState() const;
         void goNextState();
-        void setState(State);
+        void setState(State * state);
 
     private:
-        State m_currentState;
-        std::function<void(StateTypeModel, ColorModel)> m_stateUpdated;
+        State * m_currentState;
 };
 
 #endif // STATE_MACHINE_STATE_MACHINE_H_

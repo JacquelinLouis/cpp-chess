@@ -10,19 +10,20 @@
 
 void runGame() {
     BoardModel boardModel;
-    int boardModelIdentifier = boardModel.addListener(
-        [](const BoardModel boardModel) {
+    Listener boardModelListener(
+        [&]() {
             // Update UI
             std::cout << "Board model updated" << std::endl;
             BoardView(boardModel).show();
-    });
-    
+        });
+    boardModel.addListener(&boardModelListener);
+
     GameLoop gameLoop(boardModel);
     gameLoop.start();
     // Wait for end of game or quit key press
     if (false) { // Quit key press
         gameLoop.stop();
-        boardModel.removeListener(boardModelIdentifier);
+        boardModel.removeListener(&boardModelListener);
     }
 }
 

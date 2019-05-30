@@ -1,20 +1,22 @@
 #include "StateMachine.h"
+#include "state/PlayState.h"
 
-StateMachine::StateMachine(
-        std::function<void(StateTypeModel, ColorModel)> stateUpdatedCallback) :
-    m_currentState(StateTypeModel::PLAYSTATE, ColorModel::WHITE),
-    m_stateUpdated(stateUpdatedCallback)
+StateMachine::StateMachine(std::function<void()> stateUpdatedCallback) :
+    m_currentState(new Playstate())
 {}
 
-State StateMachine::getCurrentState() const {
+State * StateMachine::getCurrentState() const {
     return m_currentState;
 }
 
 void StateMachine::goNextState() {
-    m_currentState.goNext(this);
+    if (m_currentState == nullptr)
+        return;
+    m_currentState->goNext(this);
 }
 
-void StateMachine::setState(State state) {
+void StateMachine::setState(State * state) {
+    delete m_currentState;
     m_currentState = state;
-    m_stateUpdated(m_currentState.getType(), m_currentState.getColor());
+    notify();
 }

@@ -7,8 +7,20 @@ class Test {
     public:
         Test();
         ~Test();
+        /**
+         * @brief Call expectation, when adding this to code, if {@link Test::raiseCall}
+         * method is not runned before {@link Test::runExpectation} is called,
+         * this last one return an error.
+         */
         void expectCall();
-        void call();
+        /**
+         * @brief Must be called when a {@link Test::expectCall} is added.
+         */
+        void raiseCall();
+        /**
+         * @brief Check that all expectedCall/call methods have matched.
+         * Else raise an error.
+         */
         void runExpectation();
 
         static void expectTrue(bool expectation);

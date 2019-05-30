@@ -7,7 +7,7 @@ BoardModel::BoardModel() {
 void BoardModel::initialize() {
     initialize_white();
     initialize_black();
-    notify(*this);
+    notify();
 }
 
 PieceModel * BoardModel::get(const int & x, const int & y) const{
@@ -21,7 +21,7 @@ bool BoardModel::set(PieceModel * pieceModel, const int & x, const int & y) {
         return false;
     }
     m_board[x + y * BOARD_SIZE] = pieceModel;
-    notify(*this);
+    notify();
     return true;
 }
 
@@ -36,7 +36,7 @@ PieceModel * BoardModel::move(const int & xOrigin, const int & yOrigin,
     PieceModel * lastDestinationPiece = m_board[xDestination + yDestination * BOARD_SIZE];
     m_board[xDestination + yDestination * BOARD_SIZE] = m_board[xOrigin + yOrigin * BOARD_SIZE];
     m_board[xOrigin + yOrigin * BOARD_SIZE] = nullptr;
-    notify(*this);
+    notify();
     return lastDestinationPiece;
 }
 

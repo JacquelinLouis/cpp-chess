@@ -18,7 +18,7 @@ void Test::expectCall() {
     m_called += 1;
 }
 
-void Test::call() {
+void Test::raiseCall() {
     m_called -= 1;
 }
 

@@ -7,7 +7,9 @@ SRC=*.cpp \
 	model/*.cpp \
 	view/*.cpp \
 	controller/*.cpp \
-	test/*.cpp
+	test/*.cpp \
+	stateMachine/*.cpp \
+	stateMachine/state/*.cpp
 
 OBJ=$(SRC:.c=.o)
 HDR=$(SRC:.c=.h)

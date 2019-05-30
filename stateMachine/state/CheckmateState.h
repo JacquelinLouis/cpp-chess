@@ -1,7 +1,7 @@
 #ifndef STATEMACHINE_CHECKMATESTATE_H_
 #define STATEMACHINE_CHECKMATESTATE_H_
 
-#include "State.h"
+#include "../State.h"
 
 class CheckMateState : public State {
     public:

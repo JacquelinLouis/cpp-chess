@@ -2,9 +2,10 @@
 #define MVC_NOTIFIER_H_
 
 #include<functional>
-#include <map>
+#include <unordered_set>
 
-template <class UpdatedType>
+#include "Listener.h"
+
 class Notifier {
     public:
         /**
@@ -13,27 +14,22 @@ class Notifier {
          * @param listener listener to store and notify
          * @return int the unique identifier returned
          */
-        int addListener(std::function<void(UpdatedType)> listener) {
-            int id = k_identifier;
-            m_listeners.emplace(id, listener);
-            k_identifier += 1;
-            return id;
+        void addListener(Listener * listener) {
+            m_listeners.emplace(listener);
         }
-        void removeListener(int id) {
-            m_listeners.erase(id);
+
+        void removeListener(Listener * listener) {
+            m_listeners.erase(listener);
         }
-        void notify(const UpdatedType updatedObject) {
+
+        void notify() {
             for (const auto & listener : m_listeners) {
-                if (listener.second)
-                    listener.second(updatedObject);
+                listener->notify();
             }
         }
-    protected:
-        std::map<int, std::function<void(UpdatedType)>> m_listeners;
-        static int k_identifier;
-};
 
-template <class UpdatedType>
-int Notifier<UpdatedType>::k_identifier = 0;
+    protected:
+        std::unordered_set<Listener *> m_listeners;
+};
 
 #endif // MVC_NOTIFIER_H_

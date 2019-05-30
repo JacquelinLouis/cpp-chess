@@ -1,7 +1,7 @@
 #ifndef STATE_MACHINE_PLAYSTATE_H_
 #define STATE_MACHINE_PLAYSTATE_H_
 
-#include "State.h"
+#include "../State.h"
 
 class Playstate : public State {
     public:

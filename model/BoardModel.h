@@ -8,7 +8,7 @@
 
 class PieceModel;
 
-class BoardModel : public Notifier<BoardModel> {
+class BoardModel : public Notifier {
     public:
         BoardModel();
         void initialize();

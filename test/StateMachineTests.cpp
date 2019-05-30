@@ -1,7 +1,9 @@
 #include "StateMachineTests.h"
 
-void StateMachineTests::testDefaultState() {
+#include "../stateMachine/StateMachine.h"
 
+void StateMachineTests::testDefaultState() {
+    
 }
 
 void StateMachineTests::testSetState() {
