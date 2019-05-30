@@ -1,6 +1,7 @@
 #ifndef CONTROLLER_BOARD_CONTROLLER_H_
 #define CONTROLLER_BOARD_CONTROLLER_H_
 
+#include "../model/BoardModel.h"
 #include "PieceController.h"
 
 class BoardController {
@@ -18,9 +19,9 @@ class BoardController {
          * @return PieceModel* the piece that as been moved.
          * nullptr if piece could not be moved.
          */
-        PieceModel * move(const BoardModel & board,
-                          const int posOrigin[2],
-                          const int posDestination[2]) const;
+        PieceModel * move(BoardModel & board,
+                          const Position & origin,
+                          const Position & destination) const;
 
     private:
         BoardController & m_boardController;

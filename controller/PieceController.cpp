@@ -13,21 +13,20 @@ int PieceController::colorToDirection(PieceModel::Color color) {
 }
 
 PieceModel * take(BoardModel & board,
-                  const int posOrigin[2],
-                  const int posDestination[2]) {
+                  const Position origin,
+                  const Position destination) {
     return nullptr;
 }
 
 bool PieceController::move(BoardModel & board,
-                           const int posOrigin[2],
-                           const int posDestination[2]) {
-    PieceModel * pieceOrigin = board.get(posOrigin[0], posOrigin[1]);
-    if (!pieceOrigin || board.get(posDestination[0], posDestination[1])) {
+                           const Position posOrigin,
+                           const Position posDestination) {
+    PieceModel * pieceOrigin = board.get(posOrigin[X], posOrigin[Y]);
+    if (!pieceOrigin || board.get(posDestination[X], posDestination[Y])) {
         return false;
     }
     // TODO check for Pawn rights to move
     board.set(pieceOrigin, posDestination[0], posDestination[1]);
     board.set(nullptr, posOrigin[0], posOrigin[1]);
     return true;
-
 }

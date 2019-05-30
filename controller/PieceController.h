@@ -1,9 +1,7 @@
 #ifndef CONTROLLER_PIECE_CONTROLLER_H_
 #define CONTROLLER_PIECE_CONTROLLER_H_
 
-#define X 0
-#define Y 1
-
+#include <vector>
 #include "../model/PieceModel.h"
 #include "../model/BoardModel.h"
 
@@ -23,8 +21,8 @@ class PieceController {
          * @return PieceModel* pointer to the piece taken, or nullptr if failed.
          */
         virtual PieceModel * take(BoardModel & board,
-                                  const int posOrigin[2],
-                                  const int posDestination[2]) = 0;
+                                  const Position origin,
+                                  const Position destination) = 0;
         /**
          * @brief Move the piece from posOrigin to posDestination.
          * Check if the piece at posOrigin is in board and if the destination is
@@ -37,8 +35,10 @@ class PieceController {
          * (for instance : anoter piece or a move out of array bounds) happend
          */
         virtual bool move(BoardModel & board,
-                          const int posOrigin[2],
-                          const int posDestination[2]);
+                          const Position origin,
+                          const Position destination);
+
+        virtual std::vector<Position> possibleMove(BoardModel & board, const Position origin) = 0;
 };
 
 #endif // CONTROLLER_PIECE_CONTROLLER_H_

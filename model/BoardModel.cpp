@@ -10,34 +10,26 @@ void BoardModel::initialize() {
     notify();
 }
 
-PieceModel * BoardModel::get(const int & x, const int & y) const{
-    if (-1 < x && x < BOARD_SIZE && -1 < y && y < BOARD_SIZE)
-        return m_board[x + y * BOARD_SIZE];
+PieceModel * BoardModel::get(const Position & position) const {
+    if (-1 < position[X] && position[X] < BOARD_SIZE
+        && -1 < position[Y] && position[Y] < BOARD_SIZE)
+        return m_board[position[X] + position[Y] * BOARD_SIZE];
     return nullptr;
 }
 
-bool BoardModel::set(PieceModel * pieceModel, const int & x, const int & y) {
-    if (BOARD_SIZE -1 < x || x < 0 || BOARD_SIZE - 1 < y || y < 0) {
+bool BoardModel::set(const PieceModel * pieceModel, const Position & position) {
+    if (!inBoard(position))
         return false;
     }
-    m_board[x + y * BOARD_SIZE] = pieceModel;
+    int newPosition = position[X] + position[Y] * BOARD_SIZE;
+    m_board[position] = pieceModel;
     notify();
     return true;
 }
 
-PieceModel * BoardModel::move(const int & xOrigin, const int & yOrigin,
-                      const int & xDestination, const int & yDestination) {
-    if (BOARD_SIZE - 1 < xOrigin || xOrigin < 0
-        || BOARD_SIZE - 1 < yOrigin || yOrigin < 0
-        || BOARD_SIZE - 1 < xDestination || xDestination < 0
-        || BOARD_SIZE - 1 < yDestination || yDestination < 0) {
-        return nullptr;
-    }
-    PieceModel * lastDestinationPiece = m_board[xDestination + yDestination * BOARD_SIZE];
-    m_board[xDestination + yDestination * BOARD_SIZE] = m_board[xOrigin + yOrigin * BOARD_SIZE];
-    m_board[xOrigin + yOrigin * BOARD_SIZE] = nullptr;
-    notify();
-    return lastDestinationPiece;
+bool BoardModel::inBoard(const Position & position) const {
+    return 0 < position[X] && position[X] < BOARD_SIZE
+        && 0 < position[Y] && position[Y] < BOARD_SIZE;
 }
 
 void BoardModel::initialize_white() {

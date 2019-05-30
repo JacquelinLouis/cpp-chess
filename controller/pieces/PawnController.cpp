@@ -28,3 +28,10 @@ bool PawnController::move(BoardModel & board,
     }
     return PieceController::move(board, posOrigin, posDestination);
 }
+
+
+std::vector<Position> PawnController::possibleMove(BoardModel & board, const Position origin) {
+    std::vector<Position> moves;
+    
+    return moves
+}
