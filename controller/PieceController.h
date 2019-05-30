@@ -4,7 +4,7 @@
 #define X 0
 #define Y 1
 
-#include "../model/ColorModel.h"
+#include "../model/PieceModel.h"
 #include "../model/BoardModel.h"
 
 /**
@@ -12,7 +12,7 @@
  */
 class PieceController {
     public:
-        int colorToDirection(ColorModel color);
+        int colorToDirection(PieceModel::Color color);
 
         /**
          * @brief Take the piece at posDestination, by the piece at posOrigin.

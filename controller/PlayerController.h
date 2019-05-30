@@ -2,7 +2,7 @@
 #define CONTROLLER_PLAYER_CONTROLLER_H_
 
 #include "../model/BoardModel.h"
-#include "../model/ColorModel.h"
+#include "../model/PieceModel.h"
 
 /**
  * PlayerController interface
@@ -14,7 +14,7 @@ class PlayerController {
           const int posDestination[2]);
 
     private:
-        ColorModel m_color;
+        PieceModel::Color m_color;
 };
 
 #endif // CONTROLLER_PLAYER_CONTROLLER_H_

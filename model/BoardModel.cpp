@@ -50,26 +50,26 @@ void BoardModel::initialize_white() {
     m_board[6] = nullptr;
     m_board[7] = nullptr;
 
-    m_board[BOARD_SIZE] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
-    m_board[BOARD_SIZE + 1] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
-    m_board[BOARD_SIZE + 2] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
-    m_board[BOARD_SIZE + 3] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
-    m_board[BOARD_SIZE + 4] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
-    m_board[BOARD_SIZE + 5] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
-    m_board[BOARD_SIZE + 6] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
-    m_board[BOARD_SIZE + 7] = new PieceModel(PieceModel::Type::PAWN, ColorModel::WHITE);
+    m_board[BOARD_SIZE] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
+    m_board[BOARD_SIZE + 1] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
+    m_board[BOARD_SIZE + 2] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
+    m_board[BOARD_SIZE + 3] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
+    m_board[BOARD_SIZE + 4] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
+    m_board[BOARD_SIZE + 5] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
+    m_board[BOARD_SIZE + 6] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
+    m_board[BOARD_SIZE + 7] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
 }
 
 void BoardModel::initialize_black() {
     int lastPosition = BOARD_SIZE * BOARD_SIZE;
-    m_board[lastPosition - 2 * BOARD_SIZE] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
-    m_board[lastPosition - 2 * BOARD_SIZE + 1] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
-    m_board[lastPosition - 2 * BOARD_SIZE + 2] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
-    m_board[lastPosition - 2 * BOARD_SIZE + 3] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
-    m_board[lastPosition - 2 * BOARD_SIZE + 4] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
-    m_board[lastPosition - 2 * BOARD_SIZE + 5] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
-    m_board[lastPosition - 2 * BOARD_SIZE + 6] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
-    m_board[lastPosition - 2 * BOARD_SIZE + 7] = new PieceModel(PieceModel::Type::PAWN, ColorModel::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE + 1] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE + 2] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE + 3] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE + 4] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE + 5] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE + 6] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
+    m_board[lastPosition - 2 * BOARD_SIZE + 7] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
     m_board[lastPosition - BOARD_SIZE] = nullptr;
     m_board[lastPosition - BOARD_SIZE + 1] = nullptr;
     m_board[lastPosition - BOARD_SIZE + 2] = nullptr;

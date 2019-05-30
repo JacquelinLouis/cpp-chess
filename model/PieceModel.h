@@ -1,7 +1,6 @@
 #ifndef MODEL_PIECE_MODEL_H_
 #define MODEL_PIECE_MODEL_H_
 
-#include "ColorModel.h"
 #include "BoardModel.h"
 
 /**
@@ -17,7 +16,9 @@ class PieceModel {
          */
         enum Type { NONE = 0, KING, QUEEN, ROOK, PAWN, KNIGHT, BISHOP };
 
-        PieceModel(const enum Type t, const enum ColorModel c);
+        enum Color { WHITE, BLACK };
+
+        PieceModel(const enum Type t, const enum Color c);
         /**
          *@brief Test if the piece is equal to an other
             *@return true if piece type and color are equals, false else
@@ -34,7 +35,7 @@ class PieceModel {
         }
 
         const enum Type type;
-        const ColorModel color;
+        const enum Color color;
 };
 
 #endif // MODEL_PIECE_MODEL_H_

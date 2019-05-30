@@ -11,7 +11,6 @@ class PieceModel;
 class BoardModel : public Notifier {
     public:
         BoardModel();
-        void initialize();
         PieceModel * get(const int & x, const int & y) const;
         bool set(PieceModel * piece, const int & x, const int & y);
         PieceModel * move(const int & xOrigin, const int & yOrigin,
@@ -20,6 +19,7 @@ class BoardModel : public Notifier {
     private:
         PieceModel * m_board[BOARD_SIZE * BOARD_SIZE] = { };
 
+        void initialize();
         void initialize_white();
         void initialize_black();
 };

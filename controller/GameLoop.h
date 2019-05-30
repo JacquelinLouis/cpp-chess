@@ -2,7 +2,7 @@
 #define CONTROLLER_GAME_LOOPER_H_
 
 #include "../model/BoardModel.h"
-#include "../model/ColorModel.h"
+#include "../model/PieceModel.h"
 
 class GameLoop {
     public:
@@ -12,12 +12,11 @@ class GameLoop {
 
     private:
         BoardModel & m_boardModel;
-        ColorModel m_playColor;
+        PieceModel::Color m_playingColor;
         bool m_stop;
         int m_loopNumber;
 
         void updatePlayerColor();
-        ColorModel gameEnd();
 };
 
 #endif // CONTROLLER_GAME_LOOPER_H_

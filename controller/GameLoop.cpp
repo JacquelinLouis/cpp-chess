@@ -4,7 +4,6 @@
 
 GameLoop::GameLoop(BoardModel & boardModel) :
     m_boardModel(boardModel),
-    m_playColor(ColorModel::WHITE),
     m_stop(true),
     m_loopNumber(0)
 {}
@@ -18,11 +17,11 @@ void GameLoop::start() {
     m_stop = false;
 
     // Test first display
-    m_boardModel.initialize();
+    m_boardModel.notify();
     
-    while(!m_stop && gameEnd() == ColorModel::NONE) {
+    while(!m_stop) {
         std::cout << "Loop number[" << m_loopNumber << ']' << std::endl;
-        std::cout << "Player " << static_cast<int>(m_playColor) << " turn" << std::endl;
+        std::cout << "Player " << static_cast<int>(m_playingColor) << " turn" << std::endl;
 
         std::cout << "Enter the piece to move coordinates : ";
         std::cin >> posOrigin[0] >> posOriginY;
@@ -39,24 +38,9 @@ void GameLoop::start() {
                           posDestination[0], posDestination[1]);
 
         m_loopNumber += 1;
-        updatePlayerColor();
-        m_stop = true;
     }
 }
 
 void GameLoop::stop() {
     m_stop = true;
-}
-
-void GameLoop::updatePlayerColor() {
-    if (m_playColor == ColorModel::NONE || m_playColor == ColorModel::BLACK) {
-        m_playColor = ColorModel::WHITE;
-    } else {
-        m_playColor = ColorModel::BLACK;
-    }
-}
-
-ColorModel GameLoop::gameEnd() {
-    // Return the color that won
-    return ColorModel::NONE;
 }

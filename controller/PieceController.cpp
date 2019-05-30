@@ -1,11 +1,11 @@
 #include "PieceController.h"
 
-int PieceController::colorToDirection(ColorModel color) {
+int PieceController::colorToDirection(PieceModel::Color color) {
     switch (color)
     {
-        case ColorModel::BLACK:
+        case PieceModel::Color::BLACK:
             return -1;
-        case ColorModel::WHITE:
+        case PieceModel::Color::WHITE:
             return 1;
         default:
             return 0;

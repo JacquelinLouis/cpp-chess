@@ -3,7 +3,7 @@
 
 #include "StateMachine.h"
 
-#include "../model/ColorModel.h"
+#include "../model/PieceModel.h"
 
 class StateMachine;
 

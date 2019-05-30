@@ -4,7 +4,6 @@
 #include<functional>
 
 #include "../mvc/Notifier.h"
-#include "../model/ColorModel.h"
 #include "State.h"
 
 class State;
