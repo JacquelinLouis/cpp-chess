@@ -9,9 +9,9 @@ GameLoop::GameLoop(BoardModel & boardModel) :
 {}
 
 void GameLoop::start() {
-    int posOrigin[2];
+    Position posOrigin;
     char posOriginY = ' ';
-    int posDestination[2];
+    Position posDestination;
     char posDestinationY = ' ';
 
     m_stop = false;
@@ -34,8 +34,7 @@ void GameLoop::start() {
                   <<  "] to [" << posDestination[0] << ',' << posDestination[1]
                   << ']' << std::endl;
 
-        m_boardModel.move(posOrigin[0], posOrigin[1],
-                          posDestination[0], posDestination[1]);
+        // m_boardModel.move(posOrigin, posDestination);
 
         m_loopNumber += 1;
     }

@@ -8,11 +8,9 @@
 class PawnController : public PieceController {
     public:
         PieceModel * take(BoardModel & board,
-                          const int posOrigin[2],
-                          const int posDestination[2]) override;
-        bool move(BoardModel & board,
-                  const int posOrigin[2],
-                  const int posDestination[2]) override;
+                          const Position & origin,
+                          const Position & destination) override;
+        bool move(BoardModel & board, const Position & origin, const Position & destination) override;
         virtual std::vector<Position> possibleMove(BoardModel & board, const Position origin) override;
 };
 

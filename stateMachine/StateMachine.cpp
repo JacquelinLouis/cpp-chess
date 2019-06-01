@@ -1,5 +1,5 @@
 #include "StateMachine.h"
-#include "state/PlayState.h"
+#include "states/PlayState.h"
 
 StateMachine::StateMachine(std::function<void()> stateUpdatedCallback) :
     m_currentState(new Playstate())

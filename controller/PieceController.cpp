@@ -19,14 +19,14 @@ PieceModel * take(BoardModel & board,
 }
 
 bool PieceController::move(BoardModel & board,
-                           const Position posOrigin,
-                           const Position posDestination) {
-    PieceModel * pieceOrigin = board.get(posOrigin[X], posOrigin[Y]);
-    if (!pieceOrigin || board.get(posDestination[X], posDestination[Y])) {
+                           const Position & origin,
+                           const Position & destination) {
+    PieceModel * pieceOrigin = board.get(origin);
+    if (!pieceOrigin || board.get(destination)) {
         return false;
     }
     // TODO check for Pawn rights to move
-    board.set(pieceOrigin, posDestination[0], posDestination[1]);
-    board.set(nullptr, posOrigin[0], posOrigin[1]);
+    board.set(pieceOrigin, destination);
+    board.set(nullptr, origin);
     return true;
 }

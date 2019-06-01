@@ -10,6 +10,12 @@ void BoardModel::initialize() {
     notify();
 }
 
+PieceModel * BoardModel::get(int x, int y) const {
+    if (-1 < x && x < BOARD_SIZE && -1 < y && y < BOARD_SIZE)
+        return m_board[x + y * BOARD_SIZE];
+    return nullptr;
+}
+
 PieceModel * BoardModel::get(const Position & position) const {
     if (-1 < position[X] && position[X] < BOARD_SIZE
         && -1 < position[Y] && position[Y] < BOARD_SIZE)
@@ -17,12 +23,11 @@ PieceModel * BoardModel::get(const Position & position) const {
     return nullptr;
 }
 
-bool BoardModel::set(const PieceModel * pieceModel, const Position & position) {
+bool BoardModel::set(PieceModel * pieceModel, const Position & position) {
     if (!inBoard(position))
         return false;
-    }
     int newPosition = position[X] + position[Y] * BOARD_SIZE;
-    m_board[position] = pieceModel;
+    m_board[newPosition] = pieceModel;
     notify();
     return true;
 }

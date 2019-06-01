@@ -6,8 +6,8 @@
 
 class BoardController {
     public:
-        BoardController(BoardController & boardController)
-            : m_boardController(boardController)
+        BoardController(BoardModel & boardModel)
+            : m_boardModel(boardModel)
         {}
 
         /**
@@ -19,12 +19,11 @@ class BoardController {
          * @return PieceModel* the piece that as been moved.
          * nullptr if piece could not be moved.
          */
-        PieceModel * move(BoardModel & board,
-                          const Position & origin,
+        PieceModel * move(const Position & origin,
                           const Position & destination) const;
 
     private:
-        BoardController & m_boardController;
+        BoardModel & m_boardModel;
 };
 
 #endif // CONTROLLER_BOARD_CONTROLLER_H_

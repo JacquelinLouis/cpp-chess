@@ -15,9 +15,9 @@ class PieceModel;
 class BoardModel : public Notifier {
     public:
         BoardModel();
+        PieceModel * get(int x, int y) const;
         PieceModel * get(const Position & position) const;
-        bool set(const PieceModel * piece, const Position & position);
-        PieceModel * move(const Position & origin, const Position & destination);
+        bool set(PieceModel * piece, const Position & position);
 
         bool inBoard(const Position & position) const;
 
