@@ -1,5 +1,6 @@
 #include "GameLoop.h"
 #include <iostream>
+#include "BoardController.h"
 #include "../view/BoardView.h"
 
 GameLoop::GameLoop(BoardModel & boardModel) :
@@ -9,12 +10,22 @@ GameLoop::GameLoop(BoardModel & boardModel) :
 {}
 
 void GameLoop::start() {
-    Position posOrigin;
-    char posOriginY = ' ';
-    Position posDestination;
-    char posDestinationY = ' ';
-
+    Position origin;
+    char originY = ' ';
+    Position destination;
+    char destinationY = ' ';
     m_stop = false;
+
+    Listener boardModelListener(
+        [&]() {
+            // Update UI
+            std::cout << "Board model updated" << std::endl;
+            BoardView(m_boardModel).show();
+        });
+
+    m_boardModel.addListener(&boardModelListener);
+
+    BoardController boardController(m_boardModel);
 
     // Test first display
     m_boardModel.notify();
@@ -23,21 +34,25 @@ void GameLoop::start() {
         std::cout << "Loop number[" << m_loopNumber << ']' << std::endl;
         std::cout << "Player " << static_cast<int>(m_playingColor) << " turn" << std::endl;
 
-        std::cout << "Enter the piece to move coordinates : ";
-        std::cin >> posOrigin[0] >> posOriginY;
-        posOrigin[1] = BoardView::mapCharKeyToInt(posOriginY);
-        std::cout << "Enter the destination coordinates : ";
-        std::cin >> posDestination[0] >> posDestinationY;
-        posDestination[1] = BoardView::mapCharKeyToInt(posDestinationY);
+        std::cout << "Enter the piece's coordinates to move it : ";
+        std::cin >> origin[X] >> originY;
+        origin[Y] = BoardView::mapCharKeyToInt(origin[Y]);
+        std::cout << "Enter the destination : ";
+        std::cin >> destination[X] >> destinationY;
+        destination[Y] = BoardView::mapCharKeyToInt(destinationY);
 
-        std::cout << "Move piece at[" << posOrigin[0] << ',' << posOrigin[1]
-                  <<  "] to [" << posDestination[0] << ',' << posDestination[1]
+        std::cout << "Move piece at[" << origin[X] << ',' << origin[Y]
+                  <<  "] to [" << destination[X] << ',' << destination[Y]
                   << ']' << std::endl;
 
-        // m_boardModel.move(posOrigin, posDestination);
+        boardController.move(origin, destination);
 
         m_loopNumber += 1;
+
+        // TODO: remove after debug
+        m_stop = true;
     }
+    m_boardModel.removeListener(&boardModelListener);
 }
 
 void GameLoop::stop() {

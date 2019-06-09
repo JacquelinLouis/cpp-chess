@@ -17,24 +17,37 @@ PieceModel * BoardModel::get(int x, int y) const {
 }
 
 PieceModel * BoardModel::get(const Position & position) const {
-    if (-1 < position[X] && position[X] < BOARD_SIZE
-        && -1 < position[Y] && position[Y] < BOARD_SIZE)
+    if (inBoard(position))
         return m_board[position[X] + position[Y] * BOARD_SIZE];
     return nullptr;
 }
 
-bool BoardModel::set(PieceModel * pieceModel, const Position & position) {
+void BoardModel::set(PieceModel * pieceModel, const Position & position) {
+    if (internalSet(pieceModel, position))
+        notify();
+}
+
+bool BoardModel::internalSet(PieceModel * pieceModel, const Position & position) {
     if (!inBoard(position))
         return false;
     int newPosition = position[X] + position[Y] * BOARD_SIZE;
     m_board[newPosition] = pieceModel;
-    notify();
     return true;
 }
 
+PieceModel * BoardModel::move(const Position & origin,
+                              const Position & destination) {
+    if (!inBoard(origin) || !inBoard(destination))
+        return nullptr;
+    PieceModel * destPiece = get(destination);
+    PieceModel * oriPiece = get(origin);
+    set(oriPiece, destination);
+    return destPiece;
+}
+
 bool BoardModel::inBoard(const Position & position) const {
-    return 0 < position[X] && position[X] < BOARD_SIZE
-        && 0 < position[Y] && position[Y] < BOARD_SIZE;
+    return -1 < position[X] && position[X] < BOARD_SIZE
+        && -1 < position[Y] && position[Y] < BOARD_SIZE;
 }
 
 void BoardModel::initialize_white() {

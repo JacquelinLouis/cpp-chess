@@ -38,7 +38,7 @@ class PieceController {
                           const Position & origin,
                           const Position & destination);
 
-        virtual std::vector<Position> possibleMove(BoardModel & board, const Position origin) = 0;
+        virtual std::vector<Position> possibleMove(BoardModel & board, const Position & origin) = 0;
 };
 
 #endif // CONTROLLER_PIECE_CONTROLLER_H_

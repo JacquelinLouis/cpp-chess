@@ -62,6 +62,21 @@ void BoardModelTest::testPawns() {
     }
 }
 
+void testSetRaiseNotification() {
+    Test test;
+    test.expectCall();
+    Position position;
+    position[X] = 0;
+    position[Y] = 1;
+    BoardModel boardModel;
+    Listener listener([&](){
+        test.raiseCall();
+    });
+    boardModel.addListener(&listener);
+    boardModel.set(nullptr, position);
+    test.runExpectation();
+}
+
 void BoardModelTest::runAll() {
     testInitialize();
     testKings();
@@ -70,4 +85,5 @@ void BoardModelTest::runAll() {
     testBishops();
     testKnights();
     testPawns();
+    testSetRaiseNotification();
 }

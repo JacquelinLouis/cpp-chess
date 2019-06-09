@@ -15,7 +15,7 @@ class Notifier {
          * @return int the unique identifier returned
          */
         void addListener(Listener * listener) {
-            m_listeners.emplace(listener);
+            m_listeners.insert(listener);
         }
 
         void removeListener(Listener * listener) {

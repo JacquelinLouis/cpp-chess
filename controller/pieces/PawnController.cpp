@@ -1,8 +1,9 @@
 #include "PawnController.h"
 
-PieceModel * PawnController::take(BoardModel & board,
-                  const Position & origin,
-                  const Position & destination) {
+PawnController::PawnController(Direction direction) : m_direction(direction)
+{};
+
+PieceModel * PawnController::take(BoardModel & board, const Position & origin, const Position & destination) {
     PieceModel * pieceOrigin = board.get(origin);
     PieceModel * pieceDestination = board.get(destination);
     if (!pieceOrigin || !pieceDestination) {
@@ -13,9 +14,7 @@ PieceModel * PawnController::take(BoardModel & board,
     return pieceDestination;
 }
 
-bool PawnController::move(BoardModel & board, 
-                          const Position & origin,
-                          const Position & destination) {
+bool PawnController::move(BoardModel & board, const Position & origin, const Position & destination) {
     PieceModel * pieceModel = board.get(origin);
     if (!pieceModel) {
         return false;
@@ -30,8 +29,12 @@ bool PawnController::move(BoardModel & board,
 }
 
 
-std::vector<Position> PawnController::possibleMove(BoardModel & board, const Position origin) {
+std::vector<Position> PawnController::possibleMove(BoardModel & board, const Position & origin) {
     std::vector<Position> moves;
-    // TODO
+    // TODO: continue here
+    origin[X] += m_direction;
+    if (board.inBoard(origin))
+    moves.emplace_back(origin[X] + m_direction, origin[Y]);
+    moves.emplace_back(origin[X] + (2 * m_direction), origin[Y]);
     return moves;
 }
