@@ -1,5 +1,7 @@
 #include "PieceController.h"
 
+#include <algorithm>
+
 int PieceController::colorToDirection(PieceModel::Color color) {
     switch (color)
     {
@@ -12,10 +14,20 @@ int PieceController::colorToDirection(PieceModel::Color color) {
     }
 }
 
-PieceModel * take(BoardModel & board,
-                  const Position origin,
-                  const Position destination) {
-    return nullptr;
+
+PieceModel * PieceController::take(BoardModel & board,
+                                   const Position & origin,
+                                   const Position & destination) {
+    PieceModel * pieceOrigin = board.get(origin);
+    PieceModel * pieceDestination = board.get(destination);
+    if (!pieceOrigin || !pieceDestination) {
+        return nullptr;
+    }
+    if (!isPossibleMove(board, origin, destination))
+        return nullptr;
+    board.set(pieceOrigin, destination);
+    board.set(nullptr, destination);
+    return pieceDestination;
 }
 
 bool PieceController::move(BoardModel & board,
@@ -25,8 +37,18 @@ bool PieceController::move(BoardModel & board,
     if (!pieceOrigin || board.get(destination)) {
         return false;
     }
+    if (!isPossibleMove(board, origin, destination))
+        return false;
     // TODO check for Pawn rights to move
     board.set(pieceOrigin, destination);
     board.set(nullptr, origin);
     return true;
+}
+
+bool PieceController::isPossibleMove(BoardModel & board, const Position & origin, const Position & destination) {
+    std::vector<Position> pMoves = possibleMoves(board, origin);
+    auto itMove = std::find_if(pMoves.begin(), pMoves.end(), [&](const Position & position) {
+        return position == destination;
+    });
+    return itMove != pMoves.end();
 }

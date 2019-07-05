@@ -6,7 +6,9 @@
 #include "../model/BoardModel.h"
 
 /**
- * PieceController interface
+ * PieceController interface.
+ * Basically, a piece can do two thing : move to an other {@link Position},
+ * or take another piece.
  */
 class PieceController {
     public:
@@ -20,9 +22,9 @@ class PieceController {
          * @param posDestination position of the piece which be taken.
          * @return PieceModel* pointer to the piece taken, or nullptr if failed.
          */
-        virtual PieceModel * take(BoardModel & board,
-                                  const Position & origin,
-                                  const Position & destination) = 0;
+        PieceModel * take(BoardModel & board,
+                          const Position & origin,
+                          const Position & destination);
         /**
          * @brief Move the piece from posOrigin to posDestination.
          * Check if the piece at posOrigin is in board and if the destination is
@@ -34,11 +36,22 @@ class PieceController {
          * @return true on success, false if something
          * (for instance : anoter piece or a move out of array bounds) happend
          */
-        virtual bool move(BoardModel & board,
-                          const Position & origin,
-                          const Position & destination);
+        bool move(BoardModel & board,
+                  const Position & origin,
+                  const Position & destination);
 
-        virtual std::vector<Position> possibleMove(BoardModel & board, const Position & origin) = 0;
+        /**
+         * @brief Return a vector of all accessible {@link Position} from the current one.
+         *
+         * @param board the game board to use.
+         * @param the position of the piece to get possible position from.
+         *
+         * @return vector of {@link Position} typedef representing possible moves.
+         */
+        virtual std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) = 0;
+
+    protected:
+        bool isPossibleMove(BoardModel & board, const Position & origin, const Position & destination);
 };
 
 #endif // CONTROLLER_PIECE_CONTROLLER_H_

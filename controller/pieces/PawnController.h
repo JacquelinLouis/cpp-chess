@@ -2,8 +2,6 @@
 #define CONTROLLER_PAWN_CONTROLLER_H_
 
 #include "../PieceController.h"
-#include "../../model/PieceModel.h"
-#include "../../model/BoardModel.h"
 
 class PawnController : public PieceController {
     public:
@@ -13,9 +11,7 @@ class PawnController : public PieceController {
         };
 
         PawnController(Direction direction);
-        PieceModel * take(BoardModel & board, const Position & origin, const Position & destination) override;
-        bool move(BoardModel & board, const Position & origin, const Position & destination) override;
-        virtual std::vector<Position> possibleMove(BoardModel & board, const Position & origin) override;
+        std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) override;
 
     private:
         Direction m_direction;
