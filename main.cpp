@@ -7,6 +7,7 @@
 
 #include "test/MvcTests.h"
 #include "test/BoardModelTest.h"
+#include "test/controller/TowerControllerTest.h"
 
 void runGame() {
     BoardModel boardModel;
@@ -19,6 +20,8 @@ void runTests() {
     mvcTests.runAll();
     BoardModelTest boardModelTest;
     boardModelTest.runAll();
+    TowerControllerTest towerControllerTest;
+    towerControllerTest.runAll();
 }
 
 int main(int argc, char **argv) {

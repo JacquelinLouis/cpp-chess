@@ -27,6 +27,20 @@ bool Position::operator!=(const Position & position) const {
     return !(*this == position);
 }
 
+std::ostream& operator<< (std::ostream & stream, const Position & position) {
+    stream << "[" << position[X] << ";" << position[Y] << "]";
+    return stream;
+}
+
+std::ostream & operator<<(std::ostream & stream, const std::vector<Position> & positions) {
+    for (const Position & position : positions) {
+        if (position != positions.front())
+            stream << ",";
+        stream << position;
+    }
+    return stream;
+}
+
 Position & Position::addX(int value) {
     m_position[X] += value;
     return *this;
