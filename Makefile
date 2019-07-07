@@ -16,12 +16,12 @@ SRC=*.cpp \
 OBJ=$(SRC:.c=.o)
 HDR=$(SRC:.c=.h)
 
-all: game tests
+all: game.out test.out
 
-game: $(OBJ)
+game.out: $(OBJ)
 	$(CC) -o ${GAME_EXEC} $^ $(CFLAGS) $(LDFLAGS)
 
-tests: $(OBJ)
+test.out: $(OBJ)
 	$(CC) -o ${TEST_EXEC} $^ $(CFLAGS) $(LDFLAGS) -DBUILD_TESTS=1
 
 main.o: $(HDR)
