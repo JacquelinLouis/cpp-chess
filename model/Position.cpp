@@ -23,6 +23,10 @@ bool Position::operator==(const Position & position) const {
         && position.m_position[Y] == m_position[Y];
 }
 
+bool Position::operator!=(const Position & position) const {
+    return !(*this == position);
+}
+
 Position & Position::addX(int value) {
     m_position[X] += value;
     return *this;

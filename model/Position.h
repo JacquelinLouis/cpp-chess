@@ -12,6 +12,7 @@ class Position {
         int & operator[](int i);
         int operator[](int i) const;
         bool operator==(const Position & position) const;
+        bool operator!=(const Position & position) const;
         Position & addX(int value);
         Position & addY(int value);
     private:
