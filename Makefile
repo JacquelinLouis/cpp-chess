@@ -1,14 +1,15 @@
 CC=gcc
 CFLAGS=-std=c++11 -Wall -Werror -g
 LDFLAGS=-lstdc++
-GAME_EXEC=chess
-TEST_EXEC=tests
+GAME_EXEC=chess.out
+TEST_EXEC=tests.out
 SRC=*.cpp \
 	model/*.cpp \
 	view/*.cpp \
 	controller/*.cpp \
 	controller/pieces/*.cpp \
 	test/*.cpp \
+	test/controller/*.cpp \
 	stateMachine/*.cpp \
 	stateMachine/states/*.cpp
 
@@ -18,10 +19,10 @@ HDR=$(SRC:.c=.h)
 all: game tests
 
 game: $(OBJ)
-	$(CC) $^ $(CFLAGS) $(LDFLAGS)
+	$(CC) -o ${GAME_EXEC} $^ $(CFLAGS) $(LDFLAGS)
 
 tests: $(OBJ)
-	$(CC) $^ $(CFLAGS) $(LDFLAGS) -DBUILD_TESTS=1
+	$(CC) -o ${TEST_EXEC} $^ $(CFLAGS) $(LDFLAGS) -DBUILD_TESTS=1
 
 main.o: $(HDR)
 
@@ -29,4 +30,4 @@ main.o: $(HDR)
 	$(CC) -o $@ -c $< $(CFLAGS)
 
 clean:
-	rm -f a.out *.o
+	rm -f ${GAME_EXEC} ${TEST_EXEC} *.o
