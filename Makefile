@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-std=c++11 -Wall -Werror -g
 LDFLAGS=-lstdc++
 GAME_EXEC=chess.out
-TEST_EXEC=tests.out
+TEST_EXEC=test.out
 SRC=*.cpp \
 	model/*.cpp \
 	view/*.cpp \
