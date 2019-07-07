@@ -51,14 +51,14 @@ bool BoardModel::inBoard(const Position & position) const {
 }
 
 void BoardModel::initialize_white() {
-    m_board[0] = nullptr;
-    m_board[1] = nullptr;
-    m_board[2] = nullptr;
-    m_board[3] = nullptr;
-    m_board[4] = nullptr;
-    m_board[5] = nullptr;
-    m_board[6] = nullptr;
-    m_board[7] = nullptr;
+    m_board[0] = new PieceModel(PieceModel::Type::ROOK, PieceModel::Color::WHITE);
+    m_board[1] = new PieceModel(PieceModel::Type::KNIGHT, PieceModel::Color::WHITE);;
+    m_board[2] = new PieceModel(PieceModel::Type::BISHOP, PieceModel::Color::WHITE);;
+    m_board[3] = new PieceModel(PieceModel::Type::QUEEN, PieceModel::Color::WHITE);;
+    m_board[4] = new PieceModel(PieceModel::Type::KING, PieceModel::Color::WHITE);;
+    m_board[5] = new PieceModel(PieceModel::Type::BISHOP, PieceModel::Color::WHITE);;
+    m_board[6] = new PieceModel(PieceModel::Type::KNIGHT, PieceModel::Color::WHITE);;
+    m_board[7] = new PieceModel(PieceModel::Type::ROOK, PieceModel::Color::WHITE);;
 
     m_board[BOARD_SIZE] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
     m_board[BOARD_SIZE + 1] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::WHITE);
@@ -80,12 +80,12 @@ void BoardModel::initialize_black() {
     m_board[lastPosition - 2 * BOARD_SIZE + 5] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
     m_board[lastPosition - 2 * BOARD_SIZE + 6] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
     m_board[lastPosition - 2 * BOARD_SIZE + 7] = new PieceModel(PieceModel::Type::PAWN, PieceModel::Color::BLACK);
-    m_board[lastPosition - BOARD_SIZE] = nullptr;
-    m_board[lastPosition - BOARD_SIZE + 1] = nullptr;
-    m_board[lastPosition - BOARD_SIZE + 2] = nullptr;
-    m_board[lastPosition - BOARD_SIZE + 3] = nullptr;
-    m_board[lastPosition - BOARD_SIZE + 4] = nullptr;
-    m_board[lastPosition - BOARD_SIZE + 5] = nullptr;
-    m_board[lastPosition - BOARD_SIZE + 6] = nullptr;
-    m_board[lastPosition - BOARD_SIZE + 7] = nullptr;
+    m_board[lastPosition - BOARD_SIZE] = new PieceModel(PieceModel::Type::ROOK, PieceModel::Color::BLACK);
+    m_board[lastPosition - BOARD_SIZE + 1] = new PieceModel(PieceModel::Type::KNIGHT, PieceModel::Color::BLACK);
+    m_board[lastPosition - BOARD_SIZE + 2] = new PieceModel(PieceModel::Type::BISHOP, PieceModel::Color::BLACK);
+    m_board[lastPosition - BOARD_SIZE + 3] = new PieceModel(PieceModel::Type::KING, PieceModel::Color::BLACK);
+    m_board[lastPosition - BOARD_SIZE + 4] = new PieceModel(PieceModel::Type::QUEEN, PieceModel::Color::BLACK);
+    m_board[lastPosition - BOARD_SIZE + 5] = new PieceModel(PieceModel::Type::BISHOP, PieceModel::Color::BLACK);
+    m_board[lastPosition - BOARD_SIZE + 6] = new PieceModel(PieceModel::Type::KNIGHT, PieceModel::Color::BLACK);
+    m_board[lastPosition - BOARD_SIZE + 7] = new PieceModel(PieceModel::Type::ROOK, PieceModel::Color::BLACK);
 }
