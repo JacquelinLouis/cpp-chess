@@ -3,6 +3,16 @@
 
 #include <iostream>
 
+#define TEST(name, body)                                    \
+class name : private Test {                                 \
+    friend void name() {                                    \
+        TEST_NUMBER += 1;                                   \
+        std::cout << "Test[" << Test::TEST_NUMBER << "] ";  \
+        std::cout << __func__ << std::endl;                 \
+        body;                                               \
+    }                                                       \
+};                                                          \
+
 class Test {
     public:
         Test();
@@ -53,11 +63,11 @@ class Test {
             }
         }
         
+        static int TEST_NUMBER;
 
     private:
         static const char *SUCCESS; 
         static const char *FAILED;
-        static int TEST_NUMBER;
         int m_called;
 
         static void cout();
