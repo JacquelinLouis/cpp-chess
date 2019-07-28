@@ -16,7 +16,10 @@
             },
             "problemMatcher": {
                 "owner": "cpp",
-                "fileLocation": ["relative", "${workspaceFolder}"],
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
                 "pattern": {
                     "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
                     "file": 1,
@@ -30,7 +33,7 @@
         {
             "label": "make game.out",
             "type": "shell",
-            "command": "make game",
+            "command": "make game.out",
             "options": {
                 "cwd": "${workspaceRoot}"
             },
@@ -40,7 +43,10 @@
             },
             "problemMatcher": {
                 "owner": "cpp",
-                "fileLocation": ["relative", "${workspaceFolder}"],
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
                 "pattern": {
                     "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
                     "file": 1,
@@ -52,9 +58,23 @@
             }
         },
         {
+            "label": "run test.out",
+            "dependsOn": "make test.out",
+            "type": "shell",
+            "command": "./test.out",
+            "options": {
+                "cwd": "${workspaceRoot}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
             "label": "make test.out",
             "type": "shell",
-            "command": "make test",
+            "command": "make test.out",
             "options": {
                 "cwd": "${workspaceRoot}"
             },
@@ -64,7 +84,10 @@
             },
             "problemMatcher": {
                 "owner": "cpp",
-                "fileLocation": ["relative", "${workspaceFolder}"],
+                "fileLocation": [
+                    "relative",
+                    "${workspaceFolder}"
+                ],
                 "pattern": {
                     "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
                     "file": 1,
@@ -85,7 +108,8 @@
             "group": {
                 "kind": "build",
                 "isDefault": true
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "run",
