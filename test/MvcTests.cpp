@@ -22,15 +22,15 @@ class TestNotifier: public Notifier {
         int m_value;
 };
 
-void MvcTests::testAddListener() {
+TEST(testAddListener,
     TestNotifier testNotifier;
     Test test;
     Listener listener([]() {});
     testNotifier.addListener(&listener);
     Test::expectTrue(testNotifier.contains(&listener));
-}
+)
 
-void MvcTests::testDifferentsIdentifiers() {
+TEST(testDifferentsIdentifiers,
     TestNotifier testNotifier;
     Test test;
     Listener listener1([]() {});
@@ -39,9 +39,9 @@ void MvcTests::testDifferentsIdentifiers() {
     testNotifier.addListener(&listener2);
     Test::expectTrue(testNotifier.contains(&listener1));
     Test::expectTrue(testNotifier.contains(&listener2));
-}
+)
 
-void MvcTests::testRemoveListener() {
+TEST(testRemoveListener,
     TestNotifier testNotifier;
     Test test;
     Listener listener([]() {});
@@ -49,9 +49,9 @@ void MvcTests::testRemoveListener() {
     Test::expectTrue(testNotifier.contains(&listener));
     testNotifier.removeListener(&listener);
     Test::expectFalse(testNotifier.contains(&listener));
-}
+)
 
-void MvcTests::testListenerCall() {
+TEST(testListenerCall,
     TestNotifier testNotifier;
     Test test;
     test.expectCall();
@@ -59,7 +59,7 @@ void MvcTests::testListenerCall() {
     testNotifier.addListener(&listener);
     testNotifier.setValue(2);
     test.runExpectation();
-}
+)
 
 void MvcTests::runAll() {
     testAddListener();

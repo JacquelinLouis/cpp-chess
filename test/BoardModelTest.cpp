@@ -3,7 +3,7 @@
 #include "../model/BoardModel.h"
 #include "../model/PieceModel.h"
 
-void BoardModelTest::testInitialize() {
+TEST(testInitialize,
     BoardModel boardModel;
     PieceModel * pieceModel = nullptr;
     for (int i; i < BOARD_SIZE && !pieceModel; ++i) {
@@ -11,58 +11,58 @@ void BoardModelTest::testInitialize() {
             pieceModel = boardModel.get(i, j);
         }
     }
-    Test::expectTrue(pieceModel);
-}
+    expectTrue(pieceModel);
+)
 
-void testPiece(PieceModel::Type type, PieceModel::Color color, int x, int y) {
+void testPiece(Test * test, PieceModel::Type type, PieceModel::Color color, int x, int y) {
     BoardModel boardModel;
     PieceModel * pieceModel = boardModel.get(x, y);
-    Test::expectTrue(pieceModel);
-    Test::expectEquals(static_cast<int>(pieceModel->type), static_cast<int>(type));
-    Test::expectEquals(static_cast<int>(pieceModel->color), static_cast<int>(color));
+    test->expectTrue(pieceModel);
+    test->expectEquals(pieceModel->type, type);
+    test->expectEquals(pieceModel->color, color);
 }
 
-void BoardModelTest::testKings() {
-    testPiece(PieceModel::Type::KING, PieceModel::Color::WHITE, 0, BOARD_SIZE / 2);
-    testPiece(PieceModel::Type::KING, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE / 2 + 1);
-}
+TEST(testKings,
+    testPiece(this, PieceModel::Type::KING, PieceModel::Color::WHITE, 0, BOARD_SIZE / 2);
+    testPiece(this, PieceModel::Type::KING, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE / 2 + 1);
+)
 
-void BoardModelTest::testQueens() {
-    testPiece(PieceModel::Type::QUEEN, PieceModel::Color::WHITE, 0, BOARD_SIZE / 2 + 1);
-    testPiece(PieceModel::Type::QUEEN, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE / 2);
-}
+TEST(testQueens,
+    testPiece(this, PieceModel::Type::QUEEN, PieceModel::Color::WHITE, 0, BOARD_SIZE / 2 + 1);
+    testPiece(this, PieceModel::Type::QUEEN, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE / 2);
+)
 
-void BoardModelTest::testRooks() {
-    testPiece(PieceModel::Type::ROOK, PieceModel::Color::WHITE, 0, 0);
-    testPiece(PieceModel::Type::ROOK, PieceModel::Color::WHITE, 0, BOARD_SIZE - 1);
-    testPiece(PieceModel::Type::ROOK, PieceModel::Color::BLACK, BOARD_SIZE - 1, 0);
-    testPiece(PieceModel::Type::ROOK, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 1);
-}
+TEST(testRooks,
+    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::WHITE, 0, 0);
+    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::WHITE, 0, BOARD_SIZE - 1);
+    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::BLACK, BOARD_SIZE - 1, 0);
+    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 1);
+)
 
-void BoardModelTest::testBishops() {
-    testPiece(PieceModel::Type::BISHOP, PieceModel::Color::WHITE, 0, 1);
-    testPiece(PieceModel::Type::BISHOP, PieceModel::Color::WHITE, 0, BOARD_SIZE - 2);
-    testPiece(PieceModel::Type::BISHOP, PieceModel::Color::BLACK, BOARD_SIZE - 1, 1);
-    testPiece(PieceModel::Type::BISHOP, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 2);
-}
+TEST(testBishops,
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::WHITE, 0, 1);
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::WHITE, 0, BOARD_SIZE - 2);
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::BLACK, BOARD_SIZE - 1, 1);
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 2);
+)
 
-void BoardModelTest::testKnights() {
-    testPiece(PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, 0, 2);
-    testPiece(PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, 0, BOARD_SIZE - 3);
-    testPiece(PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, BOARD_SIZE - 1, 2);
-    testPiece(PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 3);
-}
+TEST(testKnights,
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, 0, 2);
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, 0, BOARD_SIZE - 3);
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, BOARD_SIZE - 1, 2);
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 3);
+)
 
-void BoardModelTest::testPawns() {
+TEST(testPawns,
     for (int i = 0; i < BOARD_SIZE; ++i) {
-        testPiece(PieceModel::Type::PAWN, PieceModel::Color::WHITE, 1, i);
+        testPiece(this, PieceModel::Type::PAWN, PieceModel::Color::WHITE, 1, i);
     }
     for (int i = 0; i < BOARD_SIZE; ++i) {
-        testPiece(PieceModel::Type::PAWN, PieceModel::Color::BLACK, BOARD_SIZE - 2, i);
+        testPiece(this, PieceModel::Type::PAWN, PieceModel::Color::BLACK, BOARD_SIZE - 2, i);
     }
-}
+)
 
-void testSetRaiseNotification() {
+TEST(testSetRaiseNotification,
     Test test;
     test.expectCall();
     Position position;
@@ -75,7 +75,7 @@ void testSetRaiseNotification() {
     boardModel.addListener(&listener);
     boardModel.set(nullptr, position);
     test.runExpectation();
-}
+)
 
 void BoardModelTest::runAll() {
     testInitialize();

@@ -3,7 +3,7 @@
 #include "../../model/BoardModel.h"
 #include "../../controller/pieces/TowerController.h"
 
-void testPossibleMoves() {
+TEST(testPossibleMoves,
     BoardModel boardModel;
     Position origin(5, 3);
     std::vector<Position> expectedMoves;
@@ -21,8 +21,8 @@ void testPossibleMoves() {
     }
     TowerController towerController;
     std::vector<Position> possibleMoves = towerController.possibleMoves(boardModel, origin);
-    Test::expectEquals(possibleMoves, expectedMoves);
-}
+    expectEquals(possibleMoves, expectedMoves);
+)
 
 TEST(testingTest,
     // Do nothing

@@ -7,15 +7,6 @@
 class BoardModelTest : public TestClass {
     public:
         void runAll() override;
-
-    private:
-        void testInitialize();
-        void testKings();
-        void testQueens();
-        void testRooks();
-        void testPawns();
-        void testKnights();
-        void testBishops();
 };
 
 #endif // TEST_BOARDMODELTEST_H_

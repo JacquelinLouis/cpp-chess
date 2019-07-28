@@ -3,20 +3,20 @@
 
 #include <iostream>
 
-#define TEST(name, body)                                    \
-class name : private Test {                                 \
-    friend void name() {                                    \
-        TEST_NUMBER += 1;                                   \
-        std::cout << "Test[" << Test::TEST_NUMBER << "] ";  \
-        std::cout << __func__ << std::endl;                 \
-        body;                                               \
-    }                                                       \
-};                                                          \
+#define TEST(name, body)                                                    \
+class name : public Test {                                                  \
+    public:                                                                 \
+        name() {                                                            \
+            std::cout << __func__ << std::endl;                             \
+            { body; }                                                       \
+        }                                                                   \
+};                                                                          \
 
 class Test {
     public:
         Test();
         ~Test();
+
         /**
          * @brief Call expectation, when adding this to code, if {@link Test::raiseCall}
          * method is not runned before {@link Test::runExpectation} is called,
@@ -33,44 +33,39 @@ class Test {
          */
         void runExpectation();
 
-        static void expectTrue(bool expectation);
-        static void expectFalse(bool expectation);
+        void expectTrue(bool expectation) {
+            if (!expectation) {
+                m_success = false;
+                std::cout << "expect " << expectation << " to be " << !expectation << std::endl;
+            } 
+        }
+
+        void expectFalse(bool expectation) {
+            expectTrue(!expectation);
+        }
+
         template<typename T>
-        static void expectEquals(T expected, T actual) {
-            cout();
+        void expectEquals(T expected, T actual) {
             if (expected != actual) {
-                std::cout << FAILED << ": expect " << actual << " to be equal to " << expected << std::endl;
-            } else {
-                std::cout << SUCCESS << std::endl;
+                m_success = false;
+                std::cout << "expect " << actual << " to be equal to " << expected << std::endl;
             }
         }
 
-        /*
-        template<typename T,
-                 typename = typename std::enable_if<std::is_enum<T>::value, bool>::type>
-        static void expectEquals(T expected, T actual) {
-            expectEquals(static_cast<int>(expected), static_cast<int>(actual)); 
-        }
-        */
-
         template<typename T>
-        static void expectNotEquals(T expected, T actual) {
-            cout();
+        void expectNotEquals(T expected, T actual) {
             if (expected == actual) {
-                std::cout << FAILED << ": expect " << actual << " to be different from " << expected << std::endl;
-            } else {
-                std::cout << SUCCESS << std::endl;
+                m_success = false;
+                std::cout << "expect " << actual << " to be different from " << expected << std::endl;
             }
         }
         
-        static int TEST_NUMBER;
+        bool m_success;
 
     private:
-        static const char *SUCCESS; 
-        static const char *FAILED;
         int m_called;
 
-        static void cout();
+        static int TEST_NUMBER;
 };
 
 #endif // TEST_TEST_H_
