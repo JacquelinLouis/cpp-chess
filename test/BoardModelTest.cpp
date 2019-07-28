@@ -17,7 +17,7 @@ TEST(testInitialize,
 void testPiece(Test * test, PieceModel::Type type, PieceModel::Color color, int x, int y) {
     BoardModel boardModel;
     PieceModel * pieceModel = boardModel.get(x, y);
-    test->expectTrue(pieceModel);
+    test->assertTrue(pieceModel);
     test->expectEquals(pieceModel->type, type);
     test->expectEquals(pieceModel->color, color);
 }

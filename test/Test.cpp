@@ -5,7 +5,7 @@
 int Test::TEST_NUMBER = 0;
 
 Test::Test() :
-    m_success(true),
+    m_state(State::SUCCESS),
     m_called(0)
 {
     TEST_NUMBER += 1;
@@ -14,7 +14,7 @@ Test::Test() :
 
 Test::~Test() {
     runExpectation();
-    std::cout << (m_success ? "SUCCESS" : "FAILED") << std::endl;   \
+    std::cout << (m_state == State::SUCCESS ? "SUCCESS" : "FAILED") << std::endl;
 }
 
 void Test::expectCall() {
@@ -27,7 +27,7 @@ void Test::raiseCall() {
 
 void Test::runExpectation() {
     if (m_called != 0) {
-        m_success = false;
+        m_state = State::EXPECT_FAILED;
         std::cout << "expect " << m_called << " call" << std::endl;
     }
 }

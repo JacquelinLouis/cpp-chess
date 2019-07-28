@@ -8,7 +8,11 @@ class name : public Test {                                                  \
     public:                                                                 \
         name() {                                                            \
             std::cout << __func__ << std::endl;                             \
-            { body; }                                                       \
+            try {                                                           \
+                { body; }                                                   \
+            } catch (AssertException) {                                     \
+                /* cancel other tests */                                    \
+            }                                                               \
         }                                                                   \
 };                                                                          \
 
@@ -34,35 +38,88 @@ class Test {
         void runExpectation();
 
         void expectTrue(bool expectation) {
-            if (!expectation) {
-                m_success = false;
-                std::cout << "expect " << expectation << " to be " << !expectation << std::endl;
-            } 
+            genericTrue(expectation, State::EXPECT_FAILED);
+        }
+
+        void assertTrue(bool expectation) {
+            genericTrue(expectation, State::ASSERT_FAILED);
+            throw new AssertException();
         }
 
         void expectFalse(bool expectation) {
             expectTrue(!expectation);
         }
 
+        void assertFalse(bool expectation) {
+            assertTrue(!expectation);
+            throw new AssertException();
+        }
+
         template<typename T>
         void expectEquals(T expected, T actual) {
-            if (expected != actual) {
-                m_success = false;
+            genericEquals(expected, actual, State::EXPECT_FAILED);
+        }
+
+        template<typename T>
+        void assertEquals(T expected, T actual) {
+            genericEquals(expected, actual, State::ASSERT_FAILED);
+            throw new AssertException();
+        }
+
+        template<typename T>
+        void expectNotEquals(T expected, T actual) {
+            genericNotEquals(expected, actual, State::EXPECT_FAILED);
+        }
+
+        template<typename T>
+        void assertNotEquals(T expected, T actual) {
+            genericNotEquals(expected, actual, State::ASSERT_FAILED);
+            throw new AssertException();
+        }
+
+    protected:
+        class AssertException : std::exception {
+            const char * what () const throw () {
+                return "Assert exception";
+            }
+        };
+
+
+    private:
+        enum State {
+            SUCCESS,
+            EXPECT_FAILED,
+            ASSERT_FAILED
+        };
+
+        bool checkAssert() {
+            return m_state != State::ASSERT_FAILED;
+        }
+
+        void genericTrue(bool expectation, State errorState) {
+            if (!expectation) {
+                m_state = errorState;
+                std::cout << "expect " << expectation << " to be " << !expectation << std::endl;
+            }
+        }
+
+        template<typename T>
+        void genericEquals(T expected, T actual, State errorState) {
+            if (expected == actual) {
+                m_state = errorState;
                 std::cout << "expect " << actual << " to be equal to " << expected << std::endl;
             }
         }
 
         template<typename T>
-        void expectNotEquals(T expected, T actual) {
-            if (expected == actual) {
-                m_success = false;
+        void genericNotEquals(T expected, T actual, State errorState) {
+            if (expected != actual) {
+                m_state = errorState;
                 std::cout << "expect " << actual << " to be different from " << expected << std::endl;
             }
         }
-        
-        bool m_success;
 
-    private:
+        State m_state;
         int m_called;
 
         static int TEST_NUMBER;
