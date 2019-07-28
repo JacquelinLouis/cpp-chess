@@ -3,22 +3,24 @@
 
 #include <iostream>
 
-#define TEST(name, body)                                                    \
-class name : public Test {                                                  \
-    public:                                                                 \
-        name() {                                                            \
-            std::cout << __func__ << std::endl;                             \
-            try {                                                           \
-                { body; }                                                   \
-            } catch (AssertException) {                                     \
-                /* cancel other tests */                                    \
-            }                                                               \
-        }                                                                   \
-};                                                                          \
+#define TEST(name, body)                            \
+class name : public Test {                          \
+    public:                                         \
+        name() : Test(__func__) {                   \
+            {                                       \
+                try {                               \
+                    body                            \
+                } catch (AssertException) {         \
+                    std::cout << "Debug" << std::endl;\
+                    /* cancel other tests */        \
+                }                                   \
+            }                                       \
+        }                                           \
+};                                                  \
 
 class Test {
     public:
-        Test();
+        Test(const char * name);
         ~Test();
 
         /**

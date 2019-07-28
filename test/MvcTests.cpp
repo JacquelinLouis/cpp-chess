@@ -24,41 +24,37 @@ class TestNotifier: public Notifier {
 
 TEST(testAddListener,
     TestNotifier testNotifier;
-    Test test;
     Listener listener([]() {});
     testNotifier.addListener(&listener);
-    Test::expectTrue(testNotifier.contains(&listener));
+    expectTrue(testNotifier.contains(&listener));
 )
 
 TEST(testDifferentsIdentifiers,
     TestNotifier testNotifier;
-    Test test;
     Listener listener1([]() {});
     Listener listener2([]() {});
     testNotifier.addListener(&listener1);
     testNotifier.addListener(&listener2);
-    Test::expectTrue(testNotifier.contains(&listener1));
-    Test::expectTrue(testNotifier.contains(&listener2));
+    expectTrue(testNotifier.contains(&listener1));
+    expectTrue(testNotifier.contains(&listener2));
 )
 
 TEST(testRemoveListener,
     TestNotifier testNotifier;
-    Test test;
     Listener listener([]() {});
     testNotifier.addListener(&listener);
-    Test::expectTrue(testNotifier.contains(&listener));
+    expectTrue(testNotifier.contains(&listener));
     testNotifier.removeListener(&listener);
-    Test::expectFalse(testNotifier.contains(&listener));
+    expectFalse(testNotifier.contains(&listener));
 )
 
 TEST(testListenerCall,
     TestNotifier testNotifier;
-    Test test;
-    test.expectCall();
-    Listener listener([&]() { test.raiseCall(); });
+    expectCall();
+    Listener listener([&]() { raiseCall(); });
     testNotifier.addListener(&listener);
     testNotifier.setValue(2);
-    test.runExpectation();
+    runExpectation();
 )
 
 void MvcTests::runAll() {

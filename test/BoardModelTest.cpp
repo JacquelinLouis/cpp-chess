@@ -63,18 +63,17 @@ TEST(testPawns,
 )
 
 TEST(testSetRaiseNotification,
-    Test test;
-    test.expectCall();
+    expectCall();
     Position position;
     position[X] = 0;
     position[Y] = 1;
     BoardModel boardModel;
     Listener listener([&](){
-        test.raiseCall();
+        raiseCall();
     });
     boardModel.addListener(&listener);
     boardModel.set(nullptr, position);
-    test.runExpectation();
+    runExpectation();
 )
 
 void BoardModelTest::runAll() {
