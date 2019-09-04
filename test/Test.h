@@ -2,6 +2,7 @@
 #define TEST_TEST_H_
 
 #include <iostream>
+#include <assert.h>
 
 #define TEST(name, body)\
 class name : public Test {\
@@ -39,18 +40,8 @@ class Test {
             genericTrue(expectation, State::EXPECT_FAILED);
         }
 
-        void assertTrue(bool expectation) {
-            genericTrue(expectation, State::ASSERT_FAILED);
-            exit(EXIT_FAILURE);
-        }
-
         void expectFalse(bool expectation) {
             expectTrue(!expectation);
-        }
-
-        void assertFalse(bool expectation) {
-            assertTrue(!expectation);
-            exit(EXIT_FAILURE);
         }
 
         template<typename T>
@@ -59,20 +50,8 @@ class Test {
         }
 
         template<typename T>
-        void assertEquals(T expected, T actual) {
-            genericEquals(expected, actual, State::ASSERT_FAILED);
-            exit(EXIT_FAILURE);
-        }
-
-        template<typename T>
         void expectNotEquals(T expected, T actual) {
             genericNotEquals(expected, actual, State::EXPECT_FAILED);
-        }
-
-        template<typename T>
-        void assertNotEquals(T expected, T actual) {
-            genericNotEquals(expected, actual, State::ASSERT_FAILED);
-            exit(EXIT_FAILURE);
         }
 
     protected:
@@ -88,27 +67,32 @@ class Test {
             ASSERT_FAILED
         };
 
-        void genericTrue(bool expectation, State errorState) {
+        bool genericTrue(bool expectation, State errorState) {
             if (!expectation) {
                 m_state = errorState;
                 std::cout << "expect " << expectation << " to be " << !expectation << std::endl;
             }
+            return expectation;
         }
 
         template<typename T>
-        void genericEquals(T expected, T actual, State errorState) {
-            if (expected == actual) {
+        bool genericEquals(T expected, T actual, State errorState) {
+            bool expectation = expected == actual; 
+            if (!expectation) {
                 m_state = errorState;
                 std::cout << "expect " << actual << " to be equal to " << expected << std::endl;
             }
+            return expectation;
         }
 
         template<typename T>
-        void genericNotEquals(T expected, T actual, State errorState) {
-            if (expected != actual) {
+        bool genericNotEquals(T expected, T actual, State errorState) {
+            bool expectation = expected != actual; 
+            if (!expectation) {
                 m_state = errorState;
                 std::cout << "expect " << actual << " to be different from " << expected << std::endl;
             }
+            return expectation;
         }
 
         State m_state;
