@@ -8,14 +8,7 @@ class name : public Test {\
     public:\
         name() : Test() {\
             startTest(__func__);\
-            {\
-                try {\
-                    runTest();\
-                } catch (AssertException) {\
-                    std::cout << "Debug" << std::endl;\
-                    /* cancel other tests */\
-                }\
-            }\
+            runTest();\
             endTest();\
         }\
     private:\
@@ -48,7 +41,7 @@ class Test {
 
         void assertTrue(bool expectation) {
             genericTrue(expectation, State::ASSERT_FAILED);
-            throw new AssertException();
+            exit(EXIT_FAILURE);
         }
 
         void expectFalse(bool expectation) {
@@ -57,7 +50,7 @@ class Test {
 
         void assertFalse(bool expectation) {
             assertTrue(!expectation);
-            throw new AssertException();
+            exit(EXIT_FAILURE);
         }
 
         template<typename T>
@@ -68,7 +61,7 @@ class Test {
         template<typename T>
         void assertEquals(T expected, T actual) {
             genericEquals(expected, actual, State::ASSERT_FAILED);
-            throw new AssertException();
+            exit(EXIT_FAILURE);
         }
 
         template<typename T>
@@ -79,15 +72,10 @@ class Test {
         template<typename T>
         void assertNotEquals(T expected, T actual) {
             genericNotEquals(expected, actual, State::ASSERT_FAILED);
-            throw new AssertException();
+            exit(EXIT_FAILURE);
         }
 
     protected:
-        class AssertException : std::exception {
-            const char * what () const throw () {
-                return "Assert exception";
-            }
-        };
 
         void startTest(const char * name);
 
