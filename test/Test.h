@@ -3,25 +3,28 @@
 
 #include <iostream>
 
-#define TEST(name, body)                            \
-class name : public Test {                          \
-    public:                                         \
-        name() : Test(__func__) {                   \
-            {                                       \
-                try {                               \
-                    body                            \
-                } catch (AssertException) {         \
+#define TEST(name, body)\
+class name : public Test {\
+    public:\
+        name() : Test() {\
+            startTest(__func__);\
+            {\
+                try {\
+                    runTest();\
+                } catch (AssertException) {\
                     std::cout << "Debug" << std::endl;\
-                    /* cancel other tests */        \
-                }                                   \
-            }                                       \
-        }                                           \
-};                                                  \
+                    /* cancel other tests */\
+                }\
+            }\
+            endTest();\
+        }\
+    private:\
+        void runTest() { body }\
+};
 
 class Test {
     public:
-        Test(const char * name);
-        ~Test();
+        Test();
 
         /**
          * @brief Call expectation, when adding this to code, if {@link Test::raiseCall}
@@ -86,6 +89,9 @@ class Test {
             }
         };
 
+        void startTest(const char * name);
+
+        void endTest();
 
     private:
         enum State {
@@ -93,10 +99,6 @@ class Test {
             EXPECT_FAILED,
             ASSERT_FAILED
         };
-
-        bool checkAssert() {
-            return m_state != State::ASSERT_FAILED;
-        }
 
         void genericTrue(bool expectation, State errorState) {
             if (!expectation) {

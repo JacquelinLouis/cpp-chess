@@ -4,15 +4,17 @@
 
 int Test::TEST_NUMBER = 0;
 
-Test::Test(const char * name) :
+Test::Test() :
     m_state(State::SUCCESS),
     m_called(0)
-{
+{}
+
+void Test::startTest(const char * name) {
     TEST_NUMBER += 1;
     std::cout << "Test[" << Test::TEST_NUMBER << "] " << name << std::endl;
 }
 
-Test::~Test() {
+void Test::endTest() {
     runExpectation();
     std::cout << (m_state == State::SUCCESS ? "SUCCESS" : "FAILED") << std::endl;
 }
