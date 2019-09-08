@@ -2,18 +2,16 @@
 #define TEST_TEST_H_
 
 #include <iostream>
-#include <assert.h>
+#include <functional>
 
 #define TEST(name, body)\
 class name : public Test {\
     public:\
         name() : Test() {\
             startTest(__func__);\
-            runTest();\
+            runTest(__func__, [this]() { body });\
             endTest();\
         }\
-    private:\
-        void runTest() { body }\
 };
 
 class Test {
@@ -37,7 +35,25 @@ class Test {
         void runExpectation();
 
         void expectTrue(bool expectation) {
-            genericTrue(expectation, State::EXPECT_FAILED);
+            genericEquals(expectation, true);
+        }
+
+        void assertTrue(bool expectation) {
+            if (!genericEquals(expectation, true)) { throw new std::exception(); }
+        }
+
+        void assertFalse(bool expectation) {
+            if (!genericEquals(expectation, false)) { throw new std::exception(); }
+        }
+
+        template<typename T>
+        void assertEquals(T expected, T actual) {
+            if (!genericEquals(expected, actual)) { throw new std::exception(); }
+        }
+
+        template<typename T>
+        void assertNotEquals(T expected, T actual) {
+            if (!genericNotEquals(expected, actual)) { throw new std::exception(); }
         }
 
         void expectFalse(bool expectation) {
@@ -46,59 +62,59 @@ class Test {
 
         template<typename T>
         void expectEquals(T expected, T actual) {
-            genericEquals(expected, actual, State::EXPECT_FAILED);
+            genericEquals(expected, actual);
         }
 
         template<typename T>
         void expectNotEquals(T expected, T actual) {
-            genericNotEquals(expected, actual, State::EXPECT_FAILED);
+            genericNotEquals(expected, actual);
         }
 
     protected:
 
         void startTest(const char * name);
 
-        void endTest();
-
-    private:
-        enum State {
-            SUCCESS,
-            EXPECT_FAILED,
-            ASSERT_FAILED
-        };
-
-        bool genericTrue(bool expectation, State errorState) {
-            if (!expectation) {
-                m_state = errorState;
-                std::cout << "expect " << expectation << " to be " << !expectation << std::endl;
-            }
-            return expectation;
+        void endTest() {
+            runExpectation();
+            std::cout << (TEST_NUMBER_ERROR < 1 ? "SUCCESS" : "FAILED") << std::endl;
         }
 
+        void runTest(const char * name, std::function<void()> body) {
+            startTest(name);
+            try {
+                body();
+            } catch (std::exception e) {
+                std::cout << "Debug" << std::endl;
+            }
+            endTest();
+        }
+
+    private:
+
         template<typename T>
-        bool genericEquals(T expected, T actual, State errorState) {
+        bool genericEquals(T expected, T actual) {
             bool expectation = expected == actual; 
             if (!expectation) {
-                m_state = errorState;
+                TEST_NUMBER_ERROR += 1;
                 std::cout << "expect " << actual << " to be equal to " << expected << std::endl;
             }
             return expectation;
         }
 
         template<typename T>
-        bool genericNotEquals(T expected, T actual, State errorState) {
+        bool genericNotEquals(T expected, T actual) {
             bool expectation = expected != actual; 
             if (!expectation) {
-                m_state = errorState;
+                TEST_NUMBER_ERROR += 1;
                 std::cout << "expect " << actual << " to be different from " << expected << std::endl;
             }
             return expectation;
         }
 
-        State m_state;
         int m_called;
 
         static int TEST_NUMBER;
+        static int TEST_NUMBER_ERROR;
 };
 
 #endif // TEST_TEST_H_
