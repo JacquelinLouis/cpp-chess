@@ -26,8 +26,8 @@ void Test::runTest(const char * name, std::function<void()> body) {
 
 void Test::endTest() {
     runExpectation();
-    std::cout << "    [" << TEST_NUMBER << ']' <<
-            (m_testFailed < 1 ? " SUCCESS" : " FAILED") << std::endl;
+    if (m_testFailed)
+        std::cout << "    [" << TEST_NUMBER << "] FAILED" << std::endl;
 }
 
 

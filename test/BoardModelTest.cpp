@@ -3,17 +3,6 @@
 #include "../model/BoardModel.h"
 #include "../model/PieceModel.h"
 
-TEST(testInitialize,
-    BoardModel boardModel;
-    PieceModel * pieceModel = nullptr;
-    for (int i; i < BOARD_SIZE && !pieceModel; ++i) {
-        for (int j = 0; j < BOARD_SIZE && !pieceModel; ++j) {
-            pieceModel = boardModel.get(i, j);
-        }
-    }
-    expectTrue(pieceModel);
-)
-
 void testPiece(Test * test, PieceModel::Type type, PieceModel::Color color, int x, int y) {
     BoardModel boardModel;
     PieceModel * pieceModel = boardModel.get(x, y);
@@ -113,7 +102,6 @@ TEST(testSetRaiseNotification,
 )
 
 void BoardModelTest::runAll() {
-    testInitialize();
     testKingWhite();
     testKingBlack();
     testWhiteQueen();
