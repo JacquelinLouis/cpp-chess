@@ -42,6 +42,7 @@ PieceModel * BoardModel::move(const Position & origin,
     PieceModel * destPiece = get(destination);
     PieceModel * oriPiece = get(origin);
     set(oriPiece, destination);
+    set(nullptr, origin);
     return destPiece;
 }
 

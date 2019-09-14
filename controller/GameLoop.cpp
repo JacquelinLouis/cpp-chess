@@ -10,10 +10,6 @@ GameLoop::GameLoop(BoardModel & boardModel) :
 {}
 
 void GameLoop::start() {
-    Position origin;
-    char originY = ' ';
-    Position destination;
-    char destinationY = ' ';
     m_stop = false;
 
     Listener boardModelListener(
@@ -25,8 +21,6 @@ void GameLoop::start() {
 
     m_boardModel.addListener(&boardModelListener);
 
-    BoardController boardController(m_boardModel);
-
     // Test first display
     m_boardModel.notify();
     
@@ -35,17 +29,15 @@ void GameLoop::start() {
         std::cout << "Player " << static_cast<int>(m_playingColor) << " turn" << std::endl;
 
         std::cout << "Enter the piece's coordinates to move it : ";
-        std::cin >> origin[X] >> originY;
-        origin[Y] = BoardView::mapCharKeyToInt(origin[Y]);
+        Position origin = BoardView::getNextPosition();
         std::cout << "Enter the destination : ";
-        std::cin >> destination[X] >> destinationY;
-        destination[Y] = BoardView::mapCharKeyToInt(destinationY);
+        Position destination = BoardView::getNextPosition();
 
         std::cout << "Move piece at[" << origin[X] << ',' << origin[Y]
                   <<  "] to [" << destination[X] << ',' << destination[Y]
                   << ']' << std::endl;
 
-        boardController.move(origin, destination);
+        BoardController(m_boardModel).move(origin, destination);
 
         m_loopNumber += 1;
 

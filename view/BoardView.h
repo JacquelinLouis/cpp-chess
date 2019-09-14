@@ -13,6 +13,7 @@
 
 class BoardView {
     public:
+        static Position getNextPosition(); 
         static int mapCharKeyToInt(char charKey);
         static char mapIntKeyToChar(int intKey);
 

@@ -2,6 +2,15 @@
 
 #include <iostream>
 
+
+Position BoardView::getNextPosition() {
+    Position position;
+    char positionY = ' ';
+    std::cin >> position[X] >> positionY;
+    position[Y] = mapCharKeyToInt(positionY);
+    return position;
+}
+
 int BoardView::mapCharKeyToInt(char charKey) {
     int intKey = -1;
     if ('A' <= charKey && charKey <= 'H')
