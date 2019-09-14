@@ -8,9 +8,7 @@
 class name : public Test {\
     public:\
         name() : Test() {\
-            startTest(__func__);\
             runTest(__func__, [this]() { body });\
-            endTest();\
         }\
 };
 
@@ -35,15 +33,15 @@ class Test {
         void runExpectation();
 
         void expectTrue(bool expectation) {
-            genericEquals(expectation, true);
+            genericEquals(true, expectation);
         }
 
         void assertTrue(bool expectation) {
-            if (!genericEquals(expectation, true)) { throw new std::exception(); }
+            if (!genericEquals(true, expectation)) { throw new std::exception(); }
         }
 
         void assertFalse(bool expectation) {
-            if (!genericEquals(expectation, false)) { throw new std::exception(); }
+            if (!genericEquals(false, expectation)) { throw new std::exception(); }
         }
 
         template<typename T>
@@ -73,21 +71,8 @@ class Test {
     protected:
 
         void startTest(const char * name);
-
-        void endTest() {
-            runExpectation();
-            std::cout << (TEST_NUMBER_ERROR < 1 ? "SUCCESS" : "FAILED") << std::endl;
-        }
-
-        void runTest(const char * name, std::function<void()> body) {
-            startTest(name);
-            try {
-                body();
-            } catch (std::exception e) {
-                std::cout << "Debug" << std::endl;
-            }
-            endTest();
-        }
+        void runTest(const char * name, std::function<void()> body);
+        void endTest();
 
     private:
 
@@ -95,8 +80,8 @@ class Test {
         bool genericEquals(T expected, T actual) {
             bool expectation = expected == actual; 
             if (!expectation) {
-                TEST_NUMBER_ERROR += 1;
-                std::cout << "expect " << actual << " to be equal to " << expected << std::endl;
+                m_testFailed = true;
+                std::cout << "expected " << expected << " but is equal to " << actual << std::endl;
             }
             return expectation;
         }
@@ -105,7 +90,7 @@ class Test {
         bool genericNotEquals(T expected, T actual) {
             bool expectation = expected != actual; 
             if (!expectation) {
-                TEST_NUMBER_ERROR += 1;
+                m_testFailed = true;
                 std::cout << "expect " << actual << " to be different from " << expected << std::endl;
             }
             return expectation;
@@ -114,7 +99,7 @@ class Test {
         int m_called;
 
         static int TEST_NUMBER;
-        static int TEST_NUMBER_ERROR;
+        bool m_testFailed;
 };
 
 #endif // TEST_TEST_H_

@@ -24,12 +24,6 @@ TEST(testPossibleMoves,
     expectEquals(possibleMoves, expectedMoves);
 )
 
-TEST(testingTest,
-    // Do nothing
-    std::cout << "tested" << std::endl;
-)
-
 void TowerControllerTest::runAll() {
     testPossibleMoves();
-    testingTest();
 }

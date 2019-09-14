@@ -17,57 +17,93 @@ TEST(testInitialize,
 void testPiece(Test * test, PieceModel::Type type, PieceModel::Color color, int x, int y) {
     BoardModel boardModel;
     PieceModel * pieceModel = boardModel.get(x, y);
-    test->expectTrue(pieceModel);
-    test->expectEquals(pieceModel->type, type);
-    test->expectEquals(pieceModel->color, color);
+    test->assertTrue(pieceModel);
+    test->expectEquals(type, pieceModel->type);
+    test->expectEquals(color, pieceModel->color);
 }
 
-TEST(testKings,
-    testPiece(this, PieceModel::Type::KING, PieceModel::Color::WHITE, 0, BOARD_SIZE / 2);
-    testPiece(this, PieceModel::Type::KING, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE / 2 + 1);
+TEST(testKingWhite,
+    testPiece(this, PieceModel::Type::KING, PieceModel::Color::WHITE, BOARD_SIZE / 2, 0);
 )
 
-TEST(testQueens,
-    testPiece(this, PieceModel::Type::QUEEN, PieceModel::Color::WHITE, 0, BOARD_SIZE / 2 + 1);
-    testPiece(this, PieceModel::Type::QUEEN, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE / 2);
+TEST(testKingBlack,
+    testPiece(this, PieceModel::Type::KING, PieceModel::Color::BLACK, BOARD_SIZE / 2 - 1, BOARD_SIZE - 1);
 )
 
-TEST(testRooks,
+TEST(testWhiteQueen,
+    testPiece(this, PieceModel::Type::QUEEN, PieceModel::Color::WHITE, BOARD_SIZE / 2 - 1, 0);
+)
+
+TEST(testBlackQueen,
+    testPiece(this, PieceModel::Type::QUEEN, PieceModel::Color::BLACK, BOARD_SIZE / 2, BOARD_SIZE - 1);
+)
+
+TEST(testLeftWhiteRook,
     testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::WHITE, 0, 0);
-    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::WHITE, 0, BOARD_SIZE - 1);
-    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::BLACK, BOARD_SIZE - 1, 0);
+)
+
+TEST(testRightWhiteRook,
+    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::WHITE, BOARD_SIZE - 1, 0);
+)
+
+TEST(testLeftBlackRook,
+    testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::BLACK, 0, BOARD_SIZE - 1);
+)
+
+TEST(testRightBlackRook,
     testPiece(this, PieceModel::Type::ROOK, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 1);
 )
 
-TEST(testBishops,
-    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::WHITE, 0, 1);
-    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::WHITE, 0, BOARD_SIZE - 2);
-    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::BLACK, BOARD_SIZE - 1, 1);
-    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 2);
+TEST(testRightWhiteBishop,
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::WHITE, 2, 0);
 )
 
-TEST(testKnights,
-    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, 0, 2);
-    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, 0, BOARD_SIZE - 3);
-    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, BOARD_SIZE - 1, 2);
-    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, BOARD_SIZE - 1, BOARD_SIZE - 3);
+TEST(testLeftWhiteBishop,
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::WHITE, BOARD_SIZE - 3, 0);
 )
 
-TEST(testPawns,
+TEST(testRightBlackBishop,
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::BLACK,  2, BOARD_SIZE - 1);
+)
+
+TEST(testLeftBlackBishop,
+    testPiece(this, PieceModel::Type::BISHOP, PieceModel::Color::BLACK, BOARD_SIZE - 3, BOARD_SIZE - 1);
+)
+
+TEST(testRightWhiteKnight,
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, 1, 0);
+)
+
+TEST(testLeftWhiteKnight,
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::WHITE, BOARD_SIZE - 2, 0);
+)
+
+TEST(testRightBlackKnight,
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, 1, BOARD_SIZE - 1);
+)
+
+TEST(testLeftBlackKnight,
+    testPiece(this, PieceModel::Type::KNIGHT, PieceModel::Color::BLACK, BOARD_SIZE - 2, BOARD_SIZE - 1);
+)
+
+TEST(testWhitePawns,
     for (int i = 0; i < BOARD_SIZE; ++i) {
-        testPiece(this, PieceModel::Type::PAWN, PieceModel::Color::WHITE, 1, i);
+        testPiece(this, PieceModel::Type::PAWN, PieceModel::Color::WHITE, i, 1);
     }
+)
+
+TEST(testBlackPawns,
     for (int i = 0; i < BOARD_SIZE; ++i) {
-        testPiece(this, PieceModel::Type::PAWN, PieceModel::Color::BLACK, BOARD_SIZE - 2, i);
+        testPiece(this, PieceModel::Type::PAWN, PieceModel::Color::BLACK, i, BOARD_SIZE - 2);
     }
 )
 
 TEST(testSetRaiseNotification,
-    expectCall();
     Position position;
     position[X] = 0;
     position[Y] = 1;
     BoardModel boardModel;
+    expectCall();
     Listener listener([&](){
         raiseCall();
     });
@@ -78,11 +114,23 @@ TEST(testSetRaiseNotification,
 
 void BoardModelTest::runAll() {
     testInitialize();
-    testKings();
-    testQueens();
-    testRooks();
-    testBishops();
-    testKnights();
-    testPawns();
+    testKingWhite();
+    testKingBlack();
+    testWhiteQueen();
+    testBlackQueen();
+    testLeftWhiteRook();
+    testRightWhiteRook();
+    testLeftBlackRook();
+    testRightBlackRook();
+    testRightWhiteBishop();
+    testLeftWhiteBishop();
+    testRightBlackBishop();
+    testLeftBlackBishop();
+    testRightWhiteKnight();
+    testLeftWhiteKnight();
+    testRightBlackKnight();
+    testRightBlackKnight();
+    testWhitePawns();
+    testBlackPawns();
     testSetRaiseNotification();
 }
