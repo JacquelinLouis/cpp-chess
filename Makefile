@@ -7,7 +7,7 @@ SRC=*.cpp \
 	model/*.cpp \
 	view/*.cpp \
 	controller/*.cpp \
-	controller/pieces/*.cpp \
+	controller/piece/*.cpp \
 	test/*.cpp \
 	test/controller/*.cpp \
 	stateMachine/*.cpp \

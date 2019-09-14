@@ -1,7 +1,7 @@
 #include "TowerControllerTest.h"
 
 #include "../../model/BoardModel.h"
-#include "../../controller/pieces/TowerController.h"
+#include "../../controller/piece/TowerController.h"
 
 TEST(testPossibleMoves,
     BoardModel boardModel;
