@@ -51,6 +51,16 @@ class PieceController {
         virtual std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) = 0;
 
     protected:
+        /**
+         * @brief Check if a move is possible for this piece.
+         * 
+         * @param board the game board to use.
+         * @param origin position to move the piece from.
+         * @param destination position to move the piece to.
+         * @return true if the piece can move from origin to destination
+         *         (destination is in board, destination is in list of possible moves, ...).
+         * @return false if the piece can't access to destination.
+         */
         bool isPossibleMove(BoardModel & board, const Position & origin, const Position & destination);
 };
 
