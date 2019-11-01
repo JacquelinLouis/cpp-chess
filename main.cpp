@@ -9,6 +9,7 @@
 #include "test/BoardModelTest.h"
 #include "test/controller/TowerControllerTest.h"
 #include "test/controller/PawnControllerTest.h"
+#include "test/controller/BishopControllerTest.h"
 
 void runGame() {
     BoardModel boardModel;
@@ -21,6 +22,7 @@ void runTests() {
     BoardModelTest().runAll();
     TowerControllerTest().runAll();
     PawnControllerTest().runAll();
+    BishopControllerTest().runAll();
 }
 
 int main(int argc, char **argv) {
