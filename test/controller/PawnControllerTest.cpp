@@ -3,7 +3,7 @@
 #include "../../model/BoardModel.h"
 #include "../../controller/piece/PawnController.h"
 
-TEST(testPossibleMoves,
+TEST(testPawnPossibleMoves,
     Position origin(5, 3);
     std::vector<Position> expectedMoves;
     expectedMoves.push_back(Position(origin[X] + 1, origin[Y]));
@@ -14,5 +14,5 @@ TEST(testPossibleMoves,
 )
 
 void PawnControllerTest::runAll() {
-    testPossibleMoves();
+    testPawnPossibleMoves();
 }

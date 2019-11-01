@@ -3,7 +3,7 @@
 #include "../../model/BoardModel.h"
 #include "../../controller/piece/TowerController.h"
 
-TEST(testPossibleMoves,
+TEST(testTowerPossibleMoves,
     Position origin(5, 3);
     std::vector<Position> expectedMoves;
     Position expectedMove(0, origin[Y]);
@@ -24,5 +24,5 @@ TEST(testPossibleMoves,
 )
 
 void TowerControllerTest::runAll() {
-    testPossibleMoves();
+    testTowerPossibleMoves();
 }
