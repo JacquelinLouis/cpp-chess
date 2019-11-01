@@ -17,14 +17,10 @@ void runGame() {
 }
 
 void runTests() {
-    MvcTests mvcTests;
-    mvcTests.runAll();
-    BoardModelTest boardModelTest;
-    boardModelTest.runAll();
-    TowerControllerTest towerControllerTest;
-    towerControllerTest.runAll();
-    PawnControllerTest pawnControllerTest;
-    pawnControllerTest.runAll();
+    MvcTests().runAll();
+    BoardModelTest().runAll();
+    TowerControllerTest().runAll();
+    PawnControllerTest().runAll();
 }
 
 int main(int argc, char **argv) {
