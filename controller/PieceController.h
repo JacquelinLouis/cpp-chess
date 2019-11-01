@@ -48,7 +48,7 @@ class PieceController {
          *
          * @return vector of {@link Position} typedef representing possible moves.
          */
-        virtual std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) = 0;
+        virtual std::vector<Position> possibleMoves(const Position & origin) = 0;
 
     protected:
         /**
@@ -61,7 +61,7 @@ class PieceController {
          *         (destination is in board, destination is in list of possible moves, ...).
          * @return false if the piece can't access to destination.
          */
-        bool isPossibleMove(BoardModel & board, const Position & origin, const Position & destination);
+        bool isPossibleMove(const Position & origin, const Position & destination);
 };
 
 #endif // CONTROLLER_PIECE_CONTROLLER_H_

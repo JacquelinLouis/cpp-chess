@@ -26,7 +26,7 @@ class BoardModel : public Notifier {
          */
         PieceModel * move(const Position & origin, const Position & destination);
 
-        bool inBoard(const Position & position) const;
+        static bool inBoard(const Position & position);
 
     private:
         PieceModel * m_board[BOARD_SIZE * BOARD_SIZE]{};

@@ -6,7 +6,7 @@
 class KingController : public PieceController
 {
 public:
-    std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) override;
+    std::vector<Position> possibleMoves(const Position & origin) override;
 };
 
 #endif // CONTROLLER_KING_CONTROLLER_H_

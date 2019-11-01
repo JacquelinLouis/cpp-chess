@@ -5,7 +5,7 @@
 
 class TowerController : public PieceController {
     public:
-        std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) override;
+        std::vector<Position> possibleMoves(const Position & origin) override;
 };
 
 #endif // CONTROLLER_TOWER_CONTROLLER_H_

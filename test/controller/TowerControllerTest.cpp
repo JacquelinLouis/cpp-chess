@@ -4,7 +4,6 @@
 #include "../../controller/piece/TowerController.h"
 
 TEST(testPossibleMoves,
-    BoardModel boardModel;
     Position origin(5, 3);
     std::vector<Position> expectedMoves;
     Position expectedMove(0, origin[Y]);
@@ -20,7 +19,7 @@ TEST(testPossibleMoves,
         expectedMove.addY(1);
     }
     TowerController towerController;
-    std::vector<Position> possibleMoves = towerController.possibleMoves(boardModel, origin);
+    std::vector<Position> possibleMoves = towerController.possibleMoves(origin);
     expectEquals(possibleMoves, expectedMoves);
 )
 

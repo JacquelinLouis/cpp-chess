@@ -23,7 +23,7 @@ PieceModel * PieceController::take(BoardModel & board,
     if (!pieceOrigin || !pieceDestination) {
         return nullptr;
     }
-    if (!isPossibleMove(board, origin, destination))
+    if (!isPossibleMove(origin, destination))
         return nullptr;
     board.set(pieceOrigin, destination);
     board.set(nullptr, destination);
@@ -37,7 +37,7 @@ bool PieceController::move(BoardModel & board,
     if (!pieceOrigin || board.get(destination)) {
         return false;
     }
-    if (!isPossibleMove(board, origin, destination))
+    if (!isPossibleMove(origin, destination))
         return false;
     // TODO check for Pawn rights to move
     board.set(pieceOrigin, destination);
@@ -45,8 +45,8 @@ bool PieceController::move(BoardModel & board,
     return true;
 }
 
-bool PieceController::isPossibleMove(BoardModel & board, const Position & origin, const Position & destination) {
-    std::vector<Position> pMoves = possibleMoves(board, origin);
+bool PieceController::isPossibleMove(const Position & origin, const Position & destination) {
+    std::vector<Position> pMoves = possibleMoves(origin);
     auto itMove = std::find_if(pMoves.begin(), pMoves.end(), [&](const Position & position) {
         return position == destination;
     });

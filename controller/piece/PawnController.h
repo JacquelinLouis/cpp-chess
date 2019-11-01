@@ -11,7 +11,7 @@ class PawnController : public PieceController {
         };
 
         PawnController(Direction direction);
-        std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) override;
+        std::vector<Position> possibleMoves(const Position & origin) override;
 
     private:
         Direction m_direction;

@@ -8,7 +8,7 @@ class BishopController : PieceController
 private:
     /* data */
 public:
-    std::vector<Position> possibleMoves(BoardModel & board, const Position & origin) override;
+    std::vector<Position> possibleMoves(const Position & origin) override;
 };
 
 #endif // CONTROLLER_BISHOP_CONTROLLER_H_

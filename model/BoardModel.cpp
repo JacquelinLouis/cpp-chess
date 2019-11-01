@@ -46,7 +46,7 @@ PieceModel * BoardModel::move(const Position & origin,
     return destPiece;
 }
 
-bool BoardModel::inBoard(const Position & position) const {
+bool BoardModel::inBoard(const Position & position) {
     return -1 < position[X] && position[X] < BOARD_SIZE
         && -1 < position[Y] && position[Y] < BOARD_SIZE;
 }
