@@ -6,8 +6,8 @@
 class PawnController : public PieceController {
     public:
         enum Direction {
-            Positive = -1,
-            Negative = 1
+            Positive = 1,
+            Negative = -1
         };
 
         PawnController(Direction direction);
