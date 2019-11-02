@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <functional>
+#include <algorithm>
+#include <vector>
 
 #define TEST(name, body)\
 class name : public Test {\
@@ -64,6 +66,11 @@ class Test {
         }
 
         template<typename T>
+        void expectUnorderedEquals(std::vector<T> expecteds, std::vector<T> actuals) {
+            genericUnorderedEquals(expecteds, actuals);
+        }
+
+        template<typename T>
         void expectNotEquals(T expected, T actual) {
             genericNotEquals(expected, actual);
         }
@@ -81,7 +88,7 @@ class Test {
             bool expectation = expected == actual; 
             if (!expectation) {
                 m_testFailed = true;
-                std::cout << "expected " << expected << " but is equal to " << actual << std::endl;
+                std::cout << "         expected " << expected << std::endl << " but is equal to " << actual << std::endl;
             }
             return expectation;
         }
@@ -91,9 +98,30 @@ class Test {
             bool expectation = expected != actual; 
             if (!expectation) {
                 m_testFailed = true;
-                std::cout << "expect " << actual << " to be different from " << expected << std::endl;
+                std::cout << "               expect " << actual << std::endl << " to be different from " << expected << std::endl;
             }
             return expectation;
+        }
+
+        template<typename T>
+        bool genericUnorderedEquals(std::vector<T> expecteds, std::vector<T> actuals) {
+            bool unorderedEquals = expecteds.size() == actuals.size();
+            if (unorderedEquals) {
+                std::vector<T> checkActuals(actuals);
+                std::for_each(expecteds.begin(), expecteds.end(), [&checkActuals](const T & expected) {
+                    checkActuals.erase(
+                        std::remove_if(checkActuals.begin(), checkActuals.end(), [& expected](const T & checkActuals) {
+                            return expected == checkActuals;
+                        })
+                    );
+                });
+                unorderedEquals = checkActuals.empty();
+            }
+            if (!unorderedEquals) {
+                m_testFailed = true;
+                std::cout << "          expect unordered " << actuals << std::endl  << " but is equal to unordered " << expecteds << std::endl;
+            }
+            return unorderedEquals;
         }
 
         int m_called;
