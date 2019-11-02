@@ -98,7 +98,7 @@ class Test {
             bool expectation = expected != actual; 
             if (!expectation) {
                 m_testFailed = true;
-                std::cout << "               expect " << actual << std::endl << " to be different from " << expected << std::endl;
+                std::cout << "               expect " << expected << std::endl << " to be different from " << actual << std::endl;
             }
             return expectation;
         }
@@ -119,7 +119,7 @@ class Test {
             }
             if (!unorderedEquals) {
                 m_testFailed = true;
-                std::cout << "          expect unordered " << actuals << std::endl  << " but is equal to unordered " << expecteds << std::endl;
+                std::cout << "          expect unordered " << expecteds << std::endl  << " but is equal to unordered " << actuals << std::endl;
             }
             return unorderedEquals;
         }
