@@ -1,7 +1,7 @@
 #include "GameLoop.h"
 #include <iostream>
 #include "BoardController.h"
-#include "../view/BoardView.h"
+#include "../view/shell/BoardView.h"
 
 GameLoop::GameLoop(BoardModel & boardModel) :
     m_boardModel(boardModel),

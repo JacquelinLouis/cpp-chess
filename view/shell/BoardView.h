@@ -1,7 +1,7 @@
 #ifndef VIEW_BOARD_VIEW_H_
 #define VIEW_BOARD_VIEW_H_
 
-#include "../model/BoardModel.h"
+#include "../../model/BoardModel.h"
 
 #define PIECE ' '
 #define KING 'K'

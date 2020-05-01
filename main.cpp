@@ -3,7 +3,7 @@
 #include "mvc/Notifier.h"
 #include "model/BoardModel.h"
 #include "controller/GameLoop.h"
-#include "view/BoardView.h"
+#include "view/shell/BoardView.h"
 
 #include "test/MvcTests.h"
 #include "test/BoardModelTest.h"

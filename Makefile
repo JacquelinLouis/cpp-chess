@@ -5,7 +5,7 @@ GAME_EXEC=chess.out
 TEST_EXEC=test.out
 SRC=*.cpp \
 	model/*.cpp \
-	view/*.cpp \
+	view/shell/*.cpp \
 	controller/*.cpp \
 	controller/piece/*.cpp \
 	test/*.cpp \
